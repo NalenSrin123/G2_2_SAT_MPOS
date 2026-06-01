@@ -19,6 +19,10 @@
 */
 
 <template>
+  <Login/>
   <!-- Router outlet: renders matched route component -->
   <RouterView />
 </template>
+<script setup>
+  import Login from '@/pages/auth/Login.vue'
+</script>
