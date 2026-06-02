@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import Design_Form_Create_Product from './pages/dashboard/Design_Form_Create_Product.vue';
+
+</script>
+
 /*
 |--------------------------------------------------------------------------
 | File: App.vue
@@ -20,5 +25,6 @@
 
 <template>
   <!-- Router outlet: renders matched route component -->
-  <RouterView />
+   <Design_Form_Create_Product/>
+  <!-- <RouterView /> -->
 </template>
