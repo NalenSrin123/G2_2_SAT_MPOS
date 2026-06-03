@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import Design_list_inventory from './pages/dashboard/Design_list _inventory.vue';
+
+</script>
+
 /*
 |--------------------------------------------------------------------------
 | File: App.vue
@@ -20,5 +25,5 @@
 
 <template>
   <!-- Router outlet: renders matched route component -->
-  <RouterView />
+  <Design_list_inventory />
 </template>

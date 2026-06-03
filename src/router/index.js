@@ -20,7 +20,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Page components
-import Dashboard from '@/pages/dashboard/Dashboard.vue'
+import Dashboard from '@/pages/dashboard/Design_list _inventory.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
