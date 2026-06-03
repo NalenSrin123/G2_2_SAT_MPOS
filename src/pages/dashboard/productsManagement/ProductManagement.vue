@@ -1,7 +1,12 @@
 <template>
   <div class="bg-gray-200 p-6 rounded-lg h-full space-y-4">
     <ProductHeader @add-product="showAddModal = true" />
-    <ProductStats />
+    <ProductStats
+      :total-products="totalProducts"
+      :low-stock-products="lowStockProducts"
+      :top-category="topCategory"
+      :average-price="averagePrice"
+    />
     <ProductFilters
       :selected-category="selectedCategory"
       :sort-option="sortOption"
@@ -58,10 +63,11 @@
             v-model="addForm.category"
             class="w-full border px-3 py-2 rounded-lg"
           >
-            <option>Electronics</option>
-            <option>Home Office</option>
-            <option>Accessories</option>
-            <option>Peripherals</option>
+            <option>Beverages</option>
+            <option>Snacks</option>
+            <option>Food</option>
+            <option>Dairy</option>
+            <option>Bakery</option>
           </select>
           <label for="price">Price</label>
           <input
@@ -112,10 +118,11 @@
             v-model="editForm.category"
             class="w-full border px-3 py-2 rounded-lg"
           >
-            <option>Electronics</option>
-            <option>Home Office</option>
-            <option>Accessories</option>
-            <option>Peripherals</option>
+            <option>Beverages</option>
+            <option>Snacks</option>
+            <option>Food</option>
+            <option>Dairy</option>
+            <option>Bakery</option>
           </select>
 
           <input
@@ -235,10 +242,78 @@ const editForm = ref({
 
 // data fake
 const products = ref([
-  { id: 1, name: 'Quantum Watch 64', sku: 'SKU-94021', category: 'Electronics', price: 299, stock: 128, status: 'Active', image: 'https://picsum.photos/60?1' },
-  { id: 2, name: 'Sonic ANC Headphones', sku: 'SKU-11284', category: 'Electronics', price: 450, stock: 4, status: 'Low Stock', image: 'https://picsum.photos/60?2' },
-  { id: 3, name: 'Pro Slate 11', sku: 'SKU-3821', category: 'Home Office', price: 899, stock: 42, status: 'Active', image: 'https://picsum.photos/60?3' }
-])
+{
+    id: 1,
+    name: 'Coca Cola 330ml',
+    sku: 'DRK-001',
+    category: 'Beverages',
+    price: 1.25,
+    stock: 120,
+    status: 'Active',
+    image: 'https://picsum.photos/60?1'
+  },
+  {
+    id: 2,
+    name: 'Pepsi 330ml',
+    sku: 'DRK-002',
+    category: 'Beverages',
+    price: 1.25,
+    stock: 95,
+    status: 'Active',
+    image: 'https://picsum.photos/60?2'
+  },
+  {
+    id: 3,
+    name: 'Lays Classic Chips',
+    sku: 'SNK-003',
+    category: 'Snacks',
+    price: 1.75,
+    stock: 45,
+    status: 'Active',
+    image: 'https://picsum.photos/60?3'
+  },
+  {
+    id: 4,
+    name: 'Oreo Cookies',
+    sku: 'SNK-004',
+    category: 'Snacks',
+    price: 2.50,
+    stock: 8,
+    status: 'Low Stock',
+    image: 'https://picsum.photos/60?4'
+  },
+  {
+    id: 5,
+    name: 'Instant Noodles',
+    sku: 'FOD-005',
+    category: 'Food',
+    price: 0.85,
+    stock: 60,
+    status: 'Active',
+    image: 'https://picsum.photos/60?5'
+  },
+  {
+    id: 6,
+    name: 'Milk 1L',
+    sku: 'DAI-006',
+    category: 'Dairy',
+    price: 2.10,
+    stock: 15,
+    status: 'Active',
+    image: 'https://picsum.photos/60?6'
+  },
+  {
+    id: 7,
+    name: 'Bread Loaf',
+    sku: 'BAK-007',
+    category: 'Bakery',
+    price: 1.80,
+    stock: 5,
+    status: 'Low Stock',
+    image: 'https://picsum.photos/60?7'
+  }
+  ])
+
 
 // filtered products
 const filteredProducts = computed(() => {
@@ -312,7 +387,6 @@ const addProduct = () => {
         : 'Active',
     image: addForm.value.imagePreview || 'https://picsum.photos/60'
   })
-
   showAddModal.value = false
 }
 
@@ -364,4 +438,41 @@ const confirmDelete = () => {
 
   closeModal()
 }
+const totalProducts = computed(() => products.value.length)
+
+const lowStockProducts = computed(() =>
+  products.value.filter(product => product.stock <= 10).length
+)
+
+const averagePrice = computed(() => {
+  if (!products.value.length) return 0
+
+  const total = products.value.reduce(
+    (sum, product) => sum + product.price,
+    0
+  )
+
+  return (total / products.value.length).toFixed(2)
+})
+
+const topCategory = computed(() => {
+  const categories = {}
+
+  products.value.forEach(product => {
+    categories[product.category] =
+      (categories[product.category] || 0) + 1
+  })
+
+  let top = '-'
+  let highest = 0
+
+  for (const category in categories) {
+    if (categories[category] > highest) {
+      highest = categories[category]
+      top = category
+    }
+  }
+
+  return top
+})
 </script>

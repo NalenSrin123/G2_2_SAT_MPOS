@@ -133,10 +133,11 @@ const currentSort = ref('')
 
 const categories = [
   'All Products',
-  'Electronics',
-  'Home Office',
-  'Accessories',
-  'Peripherals'
+  'Beverages',
+  'Snacks',
+  'Food',
+  'Dairy',
+  'Bakery'
 ]
 
 onMounted(() => {

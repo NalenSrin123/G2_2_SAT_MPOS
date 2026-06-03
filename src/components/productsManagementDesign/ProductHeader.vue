@@ -8,7 +8,7 @@
         Products Management
       </h1>
       <p class="text-sm sm:text-base text-gray-600 mt-1">
-        Manage your products, view stats, and apply filters.
+        Manage inventory, monitor stock levels, and maintain POS products.
       </p>
     </div>
 

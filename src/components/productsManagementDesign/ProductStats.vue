@@ -31,11 +31,11 @@
 
       <div>
         <h2 class="text-lg sm:text-xl md:text-3xl font-bold">
-          1,482
+          {{totalProducts.toLocaleString()}}
         </h2>
 
-        <span class="text-green-500 text-[10px] sm:text-xs md:text-sm">
-          +12% this week
+        <span class="text-blue-500 text-[10px] sm:text-xs md:text-sm">
+          Products available
         </span>
       </div>
     </div>
@@ -68,10 +68,10 @@
       </div>
       <div>
         <h2 class="text-lg sm:text-xl md:text-3xl font-bold text-red-600">
-          24
+          {{lowStockProducts.toLocaleString()}} out of {{ totalProducts.toLocaleString() }}
         </h2>
         <span class="text-red-500 text-[10px] sm:text-xs md:text-sm">
-          Requiring restock
+          Need restock
         </span>
       </div>
     </div>
@@ -103,10 +103,10 @@
       </div>
       <div>
         <h2 class="text-sm sm:text-lg md:text-3xl font-bold wrap-break-word">
-          Electronics
+          {{topCategory}}
         </h2>
         <span class="text-blue-500 text-[10px] sm:text-xs md:text-sm">
-          42% of revenue
+          Most products in this category
         </span>
       </div>
     </div>
@@ -126,10 +126,10 @@
       </div>
       <div>
         <h2 class="text-lg sm:text-xl md:text-3xl font-bold">
-          $1,482
+         ${{ averagePrice.toLocaleString() }}
         </h2>
         <span class="text-green-500 text-[10px] sm:text-xs md:text-sm">
-          Across all SKUs
+          Average Product Price
         </span>
       </div>
     </div>
@@ -138,4 +138,25 @@
 </template>
 
 <script setup>
+defineProps({
+  totalProducts: {
+    type: Number,
+    default: 0
+  },
+
+  lowStockProducts: {
+    type: Number,
+    default: 0
+  },
+
+  topCategory: {
+    type: String,
+    default: '-'
+  },
+
+  averagePrice: {
+    type: [String, Number],
+    default: 0
+  }
+})
 </script>
