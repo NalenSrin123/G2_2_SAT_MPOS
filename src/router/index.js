@@ -20,7 +20,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Page components
-import Dashboard from '@/pages/dashboard/Design_list _inventory.vue'
+import Design_list_inventory from '@/pages/dashboard/Design_list _inventory.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
@@ -54,7 +54,7 @@ const routes = [
    * Main application dashboard
    * Typically requires authentication (can add guards later)
    */
-  { path: '/dashboard', component: Dashboard },
+  { path: '/dashboard', component: Design_list_inventory },
 
   /**
    * Authentication routes
@@ -65,6 +65,12 @@ const routes = [
     path: "/reset-password",
     name: "ResetPassword",
     component: ResetPassword,
+  },
+
+  {
+    path: "/design_list_inventory",
+    name: "Design_list_inventory",
+    component: Design_list_inventory,
   },
 
   /**
