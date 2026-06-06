@@ -24,8 +24,10 @@ import Dashboard from '@/pages/dashboard/Dashboard.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
-import Home from '@/pages/home/Home.vue'
+// import Home from '@/pages/home/home.vue'
 import NotFound from '@/pages/NotFound.vue'
+import Order_page from '@/pages/dashboard/Order_page.vue'
+
 
 /**
  * Route definitions
@@ -50,6 +52,12 @@ const routes = [
    */
   { path: '/dashboard', component: Dashboard },
 
+  { path: '/order', component: Order_page },
+
+  
+
+ 
+
   /**
    * Authentication routes
    */
@@ -61,7 +69,7 @@ const routes = [
    * Uncomment when switching from preview to real landing page
    */
   // { path: '/', component: Home },
-  { path: '/home', component: Home },
+  // { path: '/home', component: Home },
 
   /**
    * Catch-all route
