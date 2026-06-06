@@ -1,17 +1,17 @@
 <template>
-  <div class=" bg-slate-100 flex items-center flex-col py-[60px] px-4" style="">
+  <div class="min-h-screen bg-slate-100 flex flex-col items-center justify-center py-1 px-4">
     <!-- Header -->
-    <div class="text-center gap-[16px] flex flex-col mb-[24px]">
+    <div class="text-center flex flex-col space-y-2 mb-2">
       <div class="w-[48px] h-[37px] bg-blue-800  rounded rounded-[8px] mx-auto flex items-center justify-center 
            text-white">
         <SquareChevronRight />
       </div>
 
-      <h1 class=" text-[36px] font-bold text-blue-800">
+      <h1 class=" text-[25px] font-bold text-blue-800">
         Nexus Terminal
       </h1>
 
-      <p class="text-[14px] text-gray-500 ">
+      <p class="text-[15px] text-gray-500 ">
         Enterprise MPOS Ecosystem
       </p>
     </div>
@@ -19,12 +19,12 @@
     <div class="w-[440px] max-h-screen border border-gray-300 bg-white rounded-[12px] shadow-lg overflow-hidden">
 
       <!-- Form -->
-      <div class="px-[32px] py-[40px]">
-        <h2 class="text-[20px] font-semibold text-gray-800 mb-[32px]">
+      <div class="px-[20px] py-[20px]">
+        <h2 class="text-[15px] font-semibold text-gray-800 mb-[20px]">
           Register Account
         </h2>
 
-        <form class="space-y-[24px]">
+        <form class="space-y-[10px]">
           <!-- Name -->
           <div class="space-y-[8px]">
             <label class="block text-[14px] font-normal text-gray-600">
@@ -32,7 +32,7 @@
             </label>
             <div class="relative">
               <input type="text" placeholder="oeungrotha"
-                class="w-full px-10 py-3 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
+                class="w-full px-10 py-2 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
               <User class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
                 size="20" />
             </div>
@@ -45,7 +45,7 @@
             </label>
             <div class="relative">
               <input type="email" placeholder="example@etec.com"
-                class="w-full px-10 py-3 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
+                class="w-full px-10 py-2 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
               <Mail class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
                 size="20" />
             </div>
@@ -59,7 +59,7 @@
             <div class="relative">
               <input :type="showPassword ? 'text' : 'password'"
                 :placeholder="showPassword ? 'Must have at least 6 characters' : '••••••••'"
-                class="w-full px-10 py-3 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
+                class="w-full px-10 py-2 pr-10 border-2 border-gray-400 bg-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-400" />
               <LockKeyhole class="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 pointer-events-none"
                 size="20" />
               <button type="button"
@@ -72,7 +72,7 @@
 
           </div>
           <!-- Register Button -->
-          <button type="submit" @click="handleSubmit" :disabled="isLoading" class="w-full bg-blue-800 hover:bg-blue-900 text-white py-3 
+          <button type="submit" @click="handleSubmit" :disabled="isLoading" class="w-full bg-blue-800 hover:bg-blue-900 text-white py-2 
             flex justify-center items-center gap-2
             rounded-lg font-normal transition duration-300
             disabled:opacity-70 disabled:cursor-not-allowed" :class="{ '': !isLoading }">
@@ -102,7 +102,7 @@
 
         <!-- Google -->
         <div class="flex gap-2">
-          <button class="flex justify-center items-center gap-2  w-full border border-gray-300 py-3  
+          <button class="flex justify-center items-center gap-2  w-full border border-gray-300 py-2  
            text-gray-700 rounded-lg bg-gray-100 hover:bg-gray-200 transition w">
             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 600 600">
               <path fill="#4285F4"
@@ -116,7 +116,7 @@
             </svg>
             Google
           </button>
-          <button class="flex justify-center items-center gap-2  w-full border border-gray-300 py-3  
+          <button class="flex justify-center items-center gap-2  w-full border border-gray-300 py-2  
            text-gray-700 rounded-lg bg-gray-100 hover:bg-gray-200 transition w">
             <FingerprintPattern />
             Biometrics
@@ -135,7 +135,7 @@
       </a>
     </p>
     <!-- Footer -->
-    <div class=" py-4 text-center text-xs font-mono font-medium text-gray-400">
+    <div class=" text-center text-xs font-mono font-medium text-gray-400">
       <a href="#" class="hover:text-blue-700">Privacy Policy</a>
       <span class="mx-2">·</span>
       <a href="#" class="hover:text-blue-700">Terms of Service</a>
