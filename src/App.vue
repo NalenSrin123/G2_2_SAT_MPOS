@@ -25,5 +25,5 @@ import Design_list_inventory from './pages/dashboard/Design_list _inventory.vue'
 
 <template>
   <!-- Router outlet: renders matched route component -->
-  <Design_list_inventory />
+  <router-view />
 </template>

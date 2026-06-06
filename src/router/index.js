@@ -26,6 +26,8 @@ import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
+import DesignList from '@/pages/dashboard/Design_list _inventory.vue'
+import Design_list_inventory from '../pages/dashboard/Design_list _inventory.vue'
 
 /**
  * Route definitions
@@ -43,6 +45,7 @@ const routes = [
    * Displays project structure and navigation examples
    */
   { path: '/preview', component: Preview },
+  { path: '/design-list', component: DesignList },
 
   /**
    * Main application dashboard
@@ -61,7 +64,11 @@ const routes = [
    * Uncomment when switching from preview to real landing page
    */
   // { path: '/', component: Home },
-  { path: '/home', component: Home },
+  {
+    path:"/design_list_inventory",
+    name:"Design_list_inventory",
+    component: Design_list_inventory
+  },
 
   /**
    * Catch-all route
