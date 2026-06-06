@@ -1,82 +1,228 @@
 <template>
   <div class="min-h-screen p-6">
-    <section class="mb-6">
-      <p class="text-sm font-semibold uppercase tracking-[2px] text-[#00449e]">Overview</p>
-      <h1 class="mt-2 text-3xl font-bold text-slate-950">Dashboard</h1>
-      <p class="mt-2 text-sm text-slate-500">Track sales, inventory, orders, and product activity from one workspace.</p>
-    </section>
+    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
 
-    <section class="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-      <article
-        v-for="stat in stats"
-        :key="stat.label"
-        class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
-      >
-        <p class="text-xs font-semibold uppercase tracking-[1.5px] text-slate-500">{{ stat.label }}</p>
-        <strong class="mt-3 block text-2xl font-bold text-slate-950">{{ stat.value }}</strong>
-        <span class="mt-2 block text-sm font-medium" :class="stat.color">{{ stat.note }}</span>
-      </article>
-    </section>
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-wider text-gray-500">
+            Total Sales
+          </span>
 
-    <section class="mt-6 grid gap-6 xl:grid-cols-[1.4fr_0.8fr]">
-      <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-        <div class="mb-5 flex items-center justify-between">
-          <h2 class="text-lg font-bold text-slate-950">Recent Orders</h2>
-          <RouterLink to="/order" class="text-sm font-bold text-[#00449e] hover:text-[#00387f]">View all</RouterLink>
+          <Wallet
+            class="w-10 h-10 p-2 rounded-xl bg-blue-100 text-blue-600"
+          />
         </div>
-        <div class="overflow-x-auto">
-          <table class="w-full min-w-[620px] text-left text-sm">
-            <thead>
-              <tr class="border-b border-slate-100 text-xs uppercase tracking-[1px] text-slate-500">
-                <th class="py-3">Order</th>
-                <th class="py-3">Customer</th>
-                <th class="py-3">Total</th>
-                <th class="py-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="order in orders" :key="order.id" class="border-b border-slate-100 last:border-0">
-                <td class="py-4 font-bold text-[#00449e]">{{ order.id }}</td>
-                <td class="py-4 text-slate-700">{{ order.customer }}</td>
-                <td class="py-4 font-semibold text-slate-900">{{ order.total }}</td>
-                <td class="py-4">
-                  <span class="rounded-full px-3 py-1 text-xs font-bold" :class="order.statusClass">{{ order.status }}</span>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </article>
 
-      <article class="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
-        <h2 class="text-lg font-bold text-slate-950">Quick Actions</h2>
-        <div class="mt-5 grid gap-3">
-          <RouterLink to="/list_inventory" class="rounded-md border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#00449e] hover:text-[#00449e]">
-            Check Inventory
-          </RouterLink>
-          <RouterLink to="/products" class="rounded-md border border-slate-200 px-4 py-3 text-sm font-semibold text-slate-700 hover:border-[#00449e] hover:text-[#00449e]">
-            Manage Products
-          </RouterLink>
-          <RouterLink to="/create_product" class="rounded-md bg-[#00449e] px-4 py-3 text-center text-sm font-bold text-white hover:bg-[#00387f]">
-            Create Product
-          </RouterLink>
+        <h2 class="text-3xl font-bold text-gray-800 mt-5">
+          $12,450
+        </h2>
+
+        <p class="text-green-600 text-sm mt-2">
+          ↗️ 12.5% from last month
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-wider text-gray-500">
+            Total Orders
+          </span>
+
+          <ShoppingBag
+            class="w-10 h-10 p-2 rounded-xl bg-gray-100 text-gray-600"
+          />
         </div>
-      </article>
-    </section>
+
+        <h2 class="text-3xl font-bold text-gray-800 mt-5">
+          154
+        </h2>
+
+        <p class="text-green-600 text-sm mt-2">
+          ↗️ 8.2% from last month
+        </p>
+      </div>
+
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-wider text-gray-500">
+            Revenue
+          </span>
+
+          <CreditCard
+            class="w-10 h-10 p-2 rounded-xl bg-emerald-100 text-emerald-600"
+          />
+        </div>
+
+        <h2 class="text-3xl font-bold text-gray-800 mt-5">
+          $8,200
+        </h2>
+
+        <p class="text-green-600 text-sm mt-2">
+          ↗️ 5.4% from last month
+        </p>
+      </div>
+
+      
+      <div class="bg-white rounded-2xl p-6 border border-gray-200 shadow-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-xs uppercase tracking-wider text-gray-500">
+            Customers
+          </span>
+
+          <User
+            class="w-10 h-10 p-2 rounded-xl bg-blue-100 text-blue-600"
+          />
+        </div>
+
+        <h2 class="text-3xl font-bold text-gray-800 mt-5">
+          1,200
+        </h2>
+
+        <p class="text-red-500 text-sm mt-2">
+          ↘️ 1.2% from last month
+        </p>
+      </div>
+
+    </div>
+
+    <!-- Overview -->
+    <div
+      class="bg-white rounded-2xl border border-gray-200 shadow-sm p-6 mt-8"
+    >
+      <div class="flex items-center justify-between mb-8">
+
+        <div>
+          <h2 class="text-2xl font-bold text-gray-800">
+            Sales Overview
+          </h2>
+
+          <p class="text-gray-500 text-sm mt-1">
+            Monthly sales performance
+          </p>
+        </div>
+
+        <div class="flex gap-2">
+          <button
+            class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition"
+          >
+            Daily
+          </button>
+
+          <button
+            class="px-4 py-2 rounded-lg bg-blue-600 text-white"
+          >
+            Monthly
+          </button>
+        </div>
+
+      </div>
+
+      <div class="h-[400px]">
+        <Bar
+          :data="chartData"
+          :options="chartOptions"
+        />
+      </div>
+
+    </div>
   </div>
 </template>
 
 <script setup>
-const stats = [
-  { label: 'Today Sales', value: '$12,480', note: '+8.4% from yesterday', color: 'text-emerald-600' },
-  { label: 'Open Orders', value: '42', note: '7 waiting payment', color: 'text-amber-600' },
-  { label: 'Products', value: '1,240', note: '18 low stock', color: 'text-red-600' },
-  { label: 'Customers', value: '8,920', note: '+126 this month', color: 'text-[#00449e]' },
-]
+import {
+  Wallet,
+  ShoppingBag,
+  CreditCard,
+  User
+} from "lucide-vue-next";
 
-const orders = [
-  { id: '#ORD-9021', customer: 'Eleanor Johnson', total: '$156.40', status: 'Completed', statusClass: 'bg-emerald-100 text-emerald-700' },
-  { id: '#ORD-9022', customer: 'Marcus Bennett', total: '$42.00', status: 'Pending', statusClass: 'bg-amber-100 text-amber-700' },
-  { id: '#ORD-9023', customer: 'Sarah Connor', total: '$294.10', status: 'Cancelled', statusClass: 'bg-red-100 text-red-700' },
-]
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend
+} from "chart.js";
+
+import { Bar } from "vue-chartjs";
+
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Tooltip,
+  Legend
+);
+
+const chartData = {
+  labels: [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC"
+  ],
+
+  datasets: [
+    {
+      data: [20, 28, 35, 42, 32, 48, 55, 39, 45, 51, 62, 42],
+
+
+      backgroundColor: [
+        "#DCE8FF",
+        "#DCE8FF",
+        "#DCE8FF",
+        "#9DB7E4",
+        "#DCE8FF",
+        "#DCE8FF",
+        "#6F90C4",
+        "#DCE8FF",
+        "#DCE8FF",
+        "#DCE8FF",
+        "#1557D6",
+        "#DCE8FF"
+      ],
+
+      borderRadius: 8,
+      borderSkipped: false
+    }
+  ]
+};
+
+const chartOptions = {
+  responsive: true,
+  maintainAspectRatio: false,
+
+  plugins: {
+    legend: {
+      display: false
+    }
+  },
+
+  scales: {
+    y: {
+      beginAtZero: true,
+      grid: {
+        color: "#f1f5f9"
+      }
+    },
+
+    x: {
+      grid: {
+        display: false
+      }
+    }
+  }
+};
 </script>
