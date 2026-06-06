@@ -27,6 +27,8 @@ import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
+import Design_register_page from '@/pages/auth/Design_register_page.vue'
+
 
 /**
  * Route definitions
@@ -61,6 +63,7 @@ const routes = [
     name: "ResetPassword",
     component: ResetPassword,
   },
+  { path: '/Design_register_page', component: Design_register_page},
 
   /**
    * Optional home route (disabled for now)
@@ -74,6 +77,7 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+
 ]
 
 /**
