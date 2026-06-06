@@ -1,29 +1,19 @@
-<script setup lang="ts">
-</script>
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+import Sidebar from './components/Sidebar.vue'
 
-/*
-|--------------------------------------------------------------------------
-| File: App.vue
-|--------------------------------------------------------------------------
-|
-| Description:
-| Root component of the application.
-| Acts as the main app shell and renders the active route view.
-|
-| Responsibilities:
-| - Provide a single mounting point for the app
-| - Render current route via Vue Router
-| - Serve as a base for global layouts or providers
-|
-| Notes:
-| - Layout wrappers (e.g., AppLayout, LandingLayout) are handled at route level
-| - Keep this file minimal and free of business logic
-|
-*/
+const route = useRoute()
+const showSidebar = computed(() => route.meta.layout === 'dashboard')
+</script>
 
 <template>
-  <!-- Router outlet: renders matched route component -->
-  <RouterView />
+  <div v-if="showSidebar" class="flex min-h-screen bg-[#f4f6f9] text-slate-900">
+    <Sidebar />
+    <main class="min-w-0 flex-1 overflow-x-hidden">
+      <RouterView />
+    </main>
+  </div>
+
+  <RouterView v-else />
 </template>
-<script setup>
-</script>

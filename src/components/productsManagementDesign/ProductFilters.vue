@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-white border rounded-xl p-4 flex flex-col lg:flex-row gap-4 justify-between shadow-sm"
+    class="bg-white  rounded-xl p-4 flex flex-col lg:flex-row gap-4 justify-between shadow-sm"
   >
     <div class="flex flex-wrap gap-2 items-center">
       <button

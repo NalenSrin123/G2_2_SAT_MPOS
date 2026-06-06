@@ -20,7 +20,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
 // Page components
-import Dashboard from '@/pages/dashboard/Design_list _inventory.vue'
+import Design_list_inventory from '@/pages/dashboard/Design_list _inventory.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
@@ -28,8 +28,14 @@ import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
-
-
+import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
+import Dashboard from '@/pages/dashboard/Dashboard.vue'
+import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
+import OrderList from '@/pages/dashboard/OrderList.vue'
+import Customers from '@/pages/dashboard/Customers.vue'
+import Reports from '@/pages/dashboard/Reports.vue'
+import Settings from '@/pages/dashboard/Settings.vue'
+import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -51,13 +57,21 @@ const routes = [
    * Main application dashboard
    * Typically requires authentication (can add guards later)
    */
-  { path: '/dashboard', component: Dashboard },
-
+  { path: '/dashboard', component: Dashboard, meta: { layout: 'dashboard' } },
+  { path: '/list_inventory', name: 'Design_list_inventory', component: Design_list_inventory, meta: { layout: 'dashboard' } },
+  { path: '/order', name: 'OrderList', component: OrderList, meta: { layout: 'dashboard' } },
+  { path: '/products', component: productsManagement, meta: { layout: 'dashboard' } },
+  { path: '/create_product', name: 'Design_Form_Create_Product', component: Design_Form_Create_Product, meta: { layout: 'dashboard' } },
+  { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
+  { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
+  { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
+  
   /**
    * Authentication routes
    */
   { path: '/login', component: Login },
   { path: '/register', component: Design_register_page },
+  { path: '/confirm-otp', component: Design_confirm_otp_page },
   {
     path: "/reset-password",
     name: "ResetPassword",
@@ -76,7 +90,6 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
-
 ]
 
 /**

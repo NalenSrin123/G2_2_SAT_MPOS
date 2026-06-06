@@ -1,48 +1,74 @@
-<template>
-    <div class="w-50 h-screen bg-slate-600 text-white flex flex-col">
-        <div class="p-4 flex items-center gap-3 mt-2">
-            <div class="flex item-center justify-center bg-white rounded-xl w-10 h-10   "><Archive class="text-blue-900 mt-2" :size="24" /></div>
-        <div class="flex flex-col">
-            <h1 class=" font-bold text-white tracking-wide leading-none">MPOS Admin</h1>
-            <p class="text-xs text-gray-400 tracking-wide mt-1">ENTERPRISE SUITE</p>
-        </div>
-        </div>
-        
-        <nav class=" flex-1 mt-2 ">
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-              <LayoutDashboard :size="20" /> <span class="text-sm">Dashboard</span> 
-            </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-                <Archive :size="20" /><span class="text-sm">Inventory</span>
-            </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-               <ShoppingCart :size="20" /> <span class="text-sm">Orders</span>
-            </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-                <Shapes :size="20" /><span class="text-sm">Products</span>
-            </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-               <Users :size="20"/> <span class="text-sm">Customers</span>
-            </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
-                <SquareKanban :size="20" /><span class="text-sm">Reports</span>
-            </RouterLink>
-        </nav>
-        <!-- Button -->
-         <div class="p-4 border-t border-slate-500 flex flex-col ">
-            <button class="w-full bg-blue-800 hover:bg-blue-700 py-3 rounded-lg text-sm mt-2 ">+ New Sale</button>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500 text-gray-300 hover:text-gray-100"><Settings :size="20"/><span class="text-sm">Settings</span></RouterLink>
-            <RouterLink class="flex items-center gap-3  p-3 rounded hover:bg-slate-500 text-gray-300 hover:text-gray-100"><LogIn :size="20" /><span class="text-sm"> Logout</span></RouterLink>
-         </div>
-
-    </div>
-</template>
-
 <script setup>
-import { LogIn, Settings, LayoutDashboard, Archive, ShoppingCart, Shapes, Users, SquareKanban  } from 'lucide-vue-next';
+import {
+  Archive,
+  LayoutDashboard,
+  LogIn,
+  Settings,
+  Shapes,
+  ShoppingCart,
+  SquareKanban,
+  Users,
+} from 'lucide-vue-next'
 
+const navItems = [
+  { label: 'Dashboard', to: '/dashboard', icon: LayoutDashboard },
+  { label: 'Inventory', to: '/list_inventory', icon: Archive },
+  { label: 'Orders', to: '/order', icon: ShoppingCart },
+  { label: 'Products', to: '/products', icon: Shapes },
+  { label: 'Customers', to: '/customers', icon: Users },
+  { label: 'Reports', to: '/reports', icon: SquareKanban },
+]
 </script>
 
-<style  scoped>
+<template>
+  <aside class="sticky top-0 flex h-screen w-64 shrink-0 flex-col bg-[#1f2937] text-white shadow-xl">
+    <div class="border-b border-white/10 px-5 py-5">
+      <div class="flex items-center gap-3">
+        <div class="grid h-11 w-11 place-items-center rounded-lg bg-white text-[#00449e] shadow-sm">
+          <Archive :size="24" />
+        </div>
+        <div class="min-w-0">
+          <h1 class="truncate text-base font-bold leading-none tracking-wide">MPOS Admin</h1>
+          <p class="mt-1 text-[11px] font-semibold tracking-[1.8px] text-slate-400">ENTERPRISE SUITE</p>
+        </div>
+      </div>
+    </div>
 
-</style>
+    <nav class="flex-1 space-y-1 px-3 py-4" aria-label="Main navigation">
+      <RouterLink
+        v-for="item in navItems"
+        :key="item.to"
+        :to="item.to"
+        class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+        active-class="bg-[#00449e] text-white shadow-sm"
+      >
+        <component :is="item.icon" :size="20" />
+        <span>{{ item.label }}</span>
+      </RouterLink>
+    </nav>
+
+    <div class="border-t border-white/10 p-3">
+      <RouterLink
+        to="/create_product"
+        class="mb-2 flex h-11 w-full items-center justify-center rounded-md bg-[#00449e] px-3 text-sm font-bold text-white shadow-sm transition hover:bg-[#00387f]"
+      >
+        + New Product
+      </RouterLink>
+      <RouterLink
+        to="/settings"
+        class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+        active-class="bg-white/10 text-white"
+      >
+        <Settings :size="20" />
+        <span>Settings</span>
+      </RouterLink>
+      <RouterLink
+        to="/login"
+        class="flex h-11 items-center gap-3 rounded-md px-3 text-sm font-medium text-slate-300 transition hover:bg-white/10 hover:text-white"
+      >
+        <LogIn :size="20" />
+        <span>Logout</span>
+      </RouterLink>
+    </div>
+  </aside>
+</template>
