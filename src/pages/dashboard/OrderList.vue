@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-50 p-8 flex justify-center font-sans text-gray-800">
+  <main class="min-h-screen bg-[#f7f8fb] px-4 py-5 text-[#22252c] sm:px-7 sm:py-6.5">
     <!-- Main Card -->
     <div class="bg-white rounded-2xl shadow-sm w-full max-w-[1100px] overflow-hidden relative border border-gray-100">
       
@@ -136,7 +136,7 @@
     <button class="fixed bottom-10 right-10 w-14 h-14 bg-[#002f87] hover:bg-blue-900 text-white rounded-full flex items-center justify-center shadow-xl transition-transform hover:scale-105 z-50">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
     </button>
-  </div>
+  </main>
 </template>
 
 

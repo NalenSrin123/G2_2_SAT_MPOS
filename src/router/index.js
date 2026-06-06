@@ -29,20 +29,18 @@ import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
 import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
-
+import Dashboard from '@/pages/dashboard/Dashboard.vue'
 import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
-
-import Sidebar from '@/components/Sidebar.vue'
+import OrderList from '@/pages/dashboard/OrderList.vue'
+import Customers from '@/pages/dashboard/Customers.vue'
+import Reports from '@/pages/dashboard/Reports.vue'
+import Settings from '@/pages/dashboard/Settings.vue'
 
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
  */
 const routes = [
-  { path: '/sidebar', component: Sidebar},
-
-
-
   /**
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
@@ -59,7 +57,14 @@ const routes = [
    * Main application dashboard
    * Typically requires authentication (can add guards later)
    */
-  { path: '/dashboard', component: Design_list_inventory },
+  { path: '/dashboard', component: Dashboard, meta: { layout: 'dashboard' } },
+  { path: '/list_inventory', name: 'Design_list_inventory', component: Design_list_inventory, meta: { layout: 'dashboard' } },
+  { path: '/order', name: 'OrderList', component: OrderList, meta: { layout: 'dashboard' } },
+  { path: '/products', component: productsManagement, meta: { layout: 'dashboard' } },
+  { path: '/create_product', name: 'Design_Form_Create_Product', component: Design_Form_Create_Product, meta: { layout: 'dashboard' } },
+  { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
+  { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
+  { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
 
   /**
    * Authentication routes
@@ -70,12 +75,6 @@ const routes = [
     path: "/reset-password",
     name: "ResetPassword",
     component: ResetPassword,
-  },
-
-  {
-    path: "/design_list_inventory",
-    name: "Design_list_inventory",
-    component: Design_list_inventory,
   },
 
   /**
@@ -90,15 +89,6 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
-  { path: '/products_management', component: productsManagement },
-
-  //Create_Product
-  {
-    path: "/create_product",
-    name: "Design_Form_Create_Product",
-    component: Design_Form_Create_Product,
-  }
-
 ]
 
 /**
