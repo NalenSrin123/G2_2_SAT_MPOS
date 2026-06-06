@@ -23,6 +23,7 @@
 */
 
 <script setup>
+import Design_overview_page from '../../dashboard/design_overview_page.vue';
 import PreText from './PreText.vue';
 
 /**
@@ -34,6 +35,7 @@ const navLinks = [
   { name: 'register', path: '/register' },
   { name: 'dashboard', path: '/dashboard' },
   { name: 'home', path: '/home' },
+  { name: 'overview', path: '/Design_overview_page' }
 ]
 </script>
 
