@@ -9,22 +9,22 @@
         </div>
         
         <nav class=" flex-1 mt-2 ">
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="/dashboard" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
               <LayoutDashboard :size="20" /> <span class="text-sm">Dashboard</span> 
             </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="/inventory" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
                 <Archive :size="20" /><span class="text-sm">Inventory</span>
             </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="/order" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
                <ShoppingCart :size="20" /> <span class="text-sm">Orders</span>
             </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="/products" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
                 <Shapes :size="20" /><span class="text-sm">Products</span>
             </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="/customers" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
                <Users :size="20"/> <span class="text-sm">Customers</span>
             </RouterLink>
-            <RouterLink class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
+            <RouterLink to="reports" class="flex items-center gap-3 p-3 rounded hover:bg-slate-500  text-gray-300 hover:text-gray-100">
                 <SquareKanban :size="20" /><span class="text-sm">Reports</span>
             </RouterLink>
         </nav>

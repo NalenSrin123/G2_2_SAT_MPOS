@@ -26,12 +26,17 @@ import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
+import Sidebar from '@/components/Sidebar.vue'
 
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
  */
 const routes = [
+  { path: '/sidebar', component: Sidebar},
+
+
+
   /**
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
