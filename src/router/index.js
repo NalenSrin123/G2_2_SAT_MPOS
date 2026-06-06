@@ -26,7 +26,7 @@ import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
-import design_overview_page from '../pages/dashboard/design_overview_page.vue'
+
 
 /**
  * Route definitions
@@ -70,7 +70,6 @@ const routes = [
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
 
-  { path: '/:design_overview_page', component: design_overview_page}
 ]
 
 /**

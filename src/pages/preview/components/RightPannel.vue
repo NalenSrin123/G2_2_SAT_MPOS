@@ -35,7 +35,6 @@ const navLinks = [
   { name: 'register', path: '/register' },
   { name: 'dashboard', path: '/dashboard' },
   { name: 'home', path: '/home' },
-  { name: 'overview', path: '/Design_overview_page' }
 ]
 </script>
 
