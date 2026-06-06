@@ -145,7 +145,17 @@
 
 <script setup>
 import { ref } from 'vue';
-import { LockKeyhole, Mail, SquareChevronRight, User, Eye, EyeOff, MoveRight, Loader, FingerprintPattern } from 'lucide-vue-next';
+import {
+  LockKeyhole,
+  Mail,
+  SquareChevronRight,
+  User,
+  Eye,
+  EyeOff,
+  MoveRight,
+  Loader,
+  Fingerprint
+} from 'lucide-vue-next';
 
 const showPassword = ref(false);
 const isLoading = ref(false);

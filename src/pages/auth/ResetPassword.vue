@@ -8,10 +8,6 @@
         <div
           class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center"
         >
-          <img
-            src="D:\etec_web\project_etec_intern\G2_2_SAT_MPOS\src\assets\reset-pass.png"
-            alt=""
-          />
         </div>
       </div>
 
