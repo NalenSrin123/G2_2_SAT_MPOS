@@ -28,6 +28,7 @@ import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
+import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
 
 
 /**
@@ -76,6 +77,7 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+  { path: '/products_management', component: productsManagement },
 
 ]
 
