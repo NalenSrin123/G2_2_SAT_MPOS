@@ -35,7 +35,7 @@ import OrderList from '@/pages/dashboard/OrderList.vue'
 import Customers from '@/pages/dashboard/Customers.vue'
 import Reports from '@/pages/dashboard/Reports.vue'
 import Settings from '@/pages/dashboard/Settings.vue'
-
+import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -65,12 +65,13 @@ const routes = [
   { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
-
+  
   /**
    * Authentication routes
    */
   { path: '/login', component: Login },
   { path: '/register', component: Design_register_page },
+  { path: '/confirm-otp', component: Design_confirm_otp_page },
   {
     path: "/reset-password",
     name: "ResetPassword",
