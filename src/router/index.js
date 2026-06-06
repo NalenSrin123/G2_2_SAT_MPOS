@@ -26,6 +26,7 @@ import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
+import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
 
 /**
  * Route definitions
@@ -68,6 +69,11 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+  {
+    path: "/design_create_product_form",
+    name: "design_create_product_form",
+    component:Design_Form_Create_Product,
+  }
 ]
 
 /**
