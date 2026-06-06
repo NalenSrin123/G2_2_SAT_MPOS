@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ArrowBigLeft, Mail } from "lucide-vue-next";
+
 import { ref } from "vue";
 
 const email = ref("");

@@ -4,7 +4,7 @@
 
     <!-- Card total product -->
     <div
-      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40"
+      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 hover:scale-102 transition-transform duration-200 flex flex-col justify-between min-h-32.5 md:min-h-40"
     >
       <div class="flex justify-between items-start">
         <h3 class="uppercase text-gray-500 text-[10px] sm:text-xs md:text-sm font-bold">
@@ -42,7 +42,7 @@
 
     <!-- Card low stock -->
     <div
-      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40"
+      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40 hover:scale-102 transition-transform duration-200"
     >
       <div class="flex justify-between items-start">
         <h3 class="uppercase text-gray-500 text-[10px] sm:text-xs md:text-sm font-bold">
@@ -78,7 +78,7 @@
 
     <!-- Card top category -->
     <div
-      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40"
+      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40 hover:scale-102 transition-transform duration-200"
     >
       <div class="flex justify-between items-start">
         <h3 class="uppercase text-gray-500 text-[10px] sm:text-xs md:text-sm font-bold">
@@ -112,7 +112,7 @@
     </div>
     <!-- Card average price -->
     <div
-      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40"
+      class="bg-white rounded-lg p-3 md:p-4 border border-gray-300 hover:bg-gray-100 flex flex-col justify-between min-h-32.5 md:min-h-40 hover:scale-102 transition-transform duration-200"
     >
       <div class="flex justify-between items-start">
         <h3 class="uppercase text-gray-500 text-[10px] sm:text-xs md:text-sm font-bold">

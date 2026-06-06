@@ -1,5 +1,5 @@
 <template>
-  <tr class="border-t">
+  <tr>
     <!-- Desktop / Tablet -->
     <template v-if="!isMobile">
       <td class="p-4">
@@ -77,7 +77,7 @@
       colspan="6"
       class="p-3"
     >
-      <div class="border rounded-xl p-4 bg-white shadow-sm">
+      <div class=" hover:scale-102 transition-transform duration-200 rounded-xl p-4 bg-white shadow-sm">
 
         <div class="flex items-center gap-3">
           <img

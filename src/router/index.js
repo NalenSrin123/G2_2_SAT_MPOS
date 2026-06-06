@@ -30,6 +30,7 @@ import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
 import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
 
+import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
 
 
 /**
@@ -78,6 +79,7 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+  { path: '/products_management', component: productsManagement },
 
   //Create_Product
   {

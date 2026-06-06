@@ -14,7 +14,7 @@
         </tr>
       </thead>
 
-      <tbody>
+      <tbody class="border-t">
         <ProductItemRow
           v-for="product in products"
           :key="product.id"
