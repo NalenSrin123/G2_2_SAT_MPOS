@@ -32,12 +32,17 @@ import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Pr
 
 import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
 
+import Sidebar from '@/components/Sidebar.vue'
 
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
  */
 const routes = [
+  { path: '/sidebar', component: Sidebar},
+
+
+
   /**
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
