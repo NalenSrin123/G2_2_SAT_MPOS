@@ -1,24 +1,21 @@
 <template>
-  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200 px-4 py-8 sm:py-12">
+  <div class="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-100 via-gray-100 to-slate-200 px-4 py-2 ">
     <!-- CARD -->
-    <div class="w-full max-w-[650px] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
+    <div class="w-full max-w-[500px] bg-white rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 overflow-hidden">
       <!-- Top from -->
-      <div class="px-6 sm:px-8 pt-8 sm:pt-10 pb-4 sm:pb-6 text-center">
+      <div class="px-6  text-center">
         <!-- Logo -->
-      <div class="w-14 h-14 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto rounded-xl sm:rounded-2xl overflow-hidden flex items-center justify-center">
-          <img
-            class="w-full h-full object-cover"
-            src="https://i.pinimg.com/736x/e5/6b/84/e56b841924ac729935e858cb59535fb7.jpg"
-            alt="Profile"
-          />
+      <div class="md:my-3 my-1 w-14 h-14 bg-sky-600 sm:w-16 sm:h-16 md:w-20 md:h-20 mx-auto rounded-full sm:rounded-full overflow-hidden flex items-center justify-center">
+
+
       </div>
 
         <!-- TITLE -->
         <div>
-          <h1 class="text-3xl sm:text-4xl font-bold text-blue-900 mt-4 sm:mt-6">
+          <h1 class="text-xl sm:text-xl font-bold text-blue-900 my-1">
             Nexus Terminal
           </h1>
-          <p class="text-gray-500 mt-2 text-sm tracking-wide">
+          <p class="text-gray-500 mt-1  text-sm tracking-wide">
             Enterprise MPOS Ecosystem
           </p>
         </div>
@@ -26,27 +23,27 @@
       </div>
 
       <!-- FORM -->
-      <div class="px-4 sm:px-8 pb-8">
-        <div class="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div class="p-4  ">
+        <div class="bg-white border border-gray-200 rounded-2xl sm:rounded-3xl px-6   md:py-4 py-3 shadow-sm">
         <!-- sign in -->
-          <h2 class="text-2xl sm:text-3xl font-bold text-gray-800 mb-6 sm:mb-8">
+          <h2 class="text-xl sm:text-2xl font-bold text-gray-800 my-2 ">
             Sign In
           </h2>
 
           <form @submit.prevent="handleLogin">
 
             <!-- Input email with error -->
-            <div class="mb-6">
+            <div class="mb-2">
               <label class="block text-sm font-semibold text-gray-700 mb-2">
                 Email Address
               </label>
               <!-- Input email  -->
               <div
-                class="flex items-center gap-3 border rounded-xl px-4 py-3 sm:py-4 transition-all duration-300"
+                class="flex  items-center gap-3 border rounded-xl px-4 py-2 sm:py-2 transition-all duration-300"
                 :class="
                   emailError
-                    ? 'border-red-500 focus-within:ring-2 focus-within:ring-red-400'
-                    : 'border-gray-300 focus-within:ring-2 focus-within:ring-blue-500'
+                    ? 'border-red-500 focus-within:ring-1 focus-within:ring-red-400'
+                    : 'border-gray-300 focus-within:ring-1 focus-within:ring-black'
                 "
               >
                 <!-- Icon -->
@@ -76,8 +73,8 @@
             </div>
 
             <!-- Input password  error and show password-->
-            <div class="mb-4">
-              <div class="flex justify-between items-center mb-2">
+            <div class="mb-2">
+              <div class="flex justify-between items-center mb-1">
                 <label class="text-sm font-semibold text-gray-700">
                   Password
                 </label>  
@@ -90,11 +87,11 @@
                 </router-link>
               </div>
               <div
-                class="flex items-center gap-3 border rounded-xl px-4 py-3 sm:py-4 transition-all duration-300"
+                class="flex items-center gap-3 border rounded-xl px-4 py-2 sm:py-2 transition-all duration-300"
                 :class="
                   passwordError
-                    ? 'border-red-500 focus-within:ring-2 focus-within:ring-red-400'
-                    : 'border-gray-300 focus-within:ring-2 focus-within:ring-blue-500'
+                    ? 'border-red-500 focus-within:ring-1 focus-within:ring-red-400'
+                    : 'border-gray-300 focus-within:ring-1 focus-within:ring-black'
                 "
               >
                 <!-- key icon-->
@@ -185,7 +182,7 @@
             </div>
 
             <!-- Remember -->
-            <div class="flex items-center gap-2 mb-8">
+            <div class="flex items-center gap-2 mb-4">
               <input
                 type="checkbox"
                 class="w-4 h-4 rounded border-gray-300 text-blue-600"
@@ -194,15 +191,15 @@
               <span class="text-sm text-gray-600">
                 Remember this device
               </span>
+              
             </div>
-
             <!-- Button sign in -->
             <button
               type="submit"
-              class="group relative overflow-hidden flex items-center justify-center gap-2 w-full
+              class="group relative overflow-hidden flex items-center justify-center gap-2  w-full
                     bg-blue-800
-                    text-white py-3.5 sm:py-4 rounded-md
-                    text-base sm:text-lg font-semibold tracking-wide"
+                    text-white py-2 sm:py-2 rounded-md
+                    text-base sm:text-md font-semibold tracking-wide"
             >
 
               <!-- Glow -->
@@ -228,10 +225,10 @@
           </form>
 
           <!-- DIVIDER -->
-          <div class="flex items-center gap-4 my-8">
+          <div class="flex items-center gap-4 my-2 ">
             <div class="flex-1 h-px bg-gray-300"></div>
 
-            <span class="text-xs tracking-[2px] uppercase text-gray-400 font-semibold text-center">
+            <span class="text-xs tracking-[2px] my-3 uppercase text-gray-400 font-semibold text-center">
               Or Continue With
             </span>
 
@@ -243,10 +240,11 @@
 
             <!-- Google -->
             <button
-              class="border border-gray-300 rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+              class="border border-gray-300 rounded-xl py-2 flex items-center justify-center gap-2 hover:bg-gray-50 transition"
             >
               <img
-                src="https://www.svgrepo.com/show/475656/google-color.svg"
+                src="@/assets/btngoogle.png"
+                alt=""
                 class="w-5 h-5"
               />
 
@@ -257,9 +255,9 @@
 
             <!-- Biometrics -->
             <button
-              class="border border-gray-300 rounded-xl py-3 flex items-center justify-center gap-2 hover:bg-gray-50 transition"
+              class="border border-gray-300 rounded-xl py-2 flex items-center justify-center gap-2 hover:bg-gray-50 transition"
             >
-              <img src="https://img.freepik.com/premium-vector/fingerprint-icon_1076610-14941.jpg" class="w-5 h-5" alt="">
+              <img src="@/assets/btnbio.png" class="w-5 h-5" alt="">
 
               <span class="font-medium text-gray-700">
                 Biometrics
@@ -269,7 +267,7 @@
         </div>
 
         <!-- Footer from -->
-        <div class="text-center mt-8">
+        <div class="text-center mt-2">
           <p class="text-gray-600 text-sm sm:text-base">
             Don't have an account?
 
@@ -278,7 +276,7 @@
             </a>
           </p>
 
-          <div class="mt-6 flex flex-wrap justify-center gap-4 sm:gap-6 text-sm text-gray-400">
+          <div class="md:mt-2 flex  flex-wrap justify-center gap-4 sm:gap-6 text-sm text-gray-400">
             <a href="#" class="hover:text-blue-600">
               Privacy Policy
             </a>
