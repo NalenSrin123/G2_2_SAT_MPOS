@@ -26,8 +26,6 @@ import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
 import Home from '@/pages/home/Home.vue'
 import NotFound from '@/pages/NotFound.vue'
-import Design_register_page from '@/pages/auth/Design_register_page.vue'
-
 
 /**
  * Route definitions
@@ -57,8 +55,6 @@ const routes = [
    */
   { path: '/login', component: Login },
   { path: '/register', component: Register },
-  { path: '/Design_register_page', component: Design_register_page},
-
   /**
    * Optional home route (disabled for now)
    * Uncomment when switching from preview to real landing page
