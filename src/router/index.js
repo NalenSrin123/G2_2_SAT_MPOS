@@ -57,13 +57,12 @@ const routes = [
    * Authentication routes
    */
   { path: '/login', component: Login },
-  { path: '/register', component: Register },
+  { path: '/register', component: Design_register_page },
   {
     path: "/reset-password",
     name: "ResetPassword",
     component: ResetPassword,
   },
-  { path: '/Design_register_page', component: Design_register_page},
 
   /**
    * Optional home route (disabled for now)
