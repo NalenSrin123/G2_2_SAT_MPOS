@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full p-4 border-t"
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full p-4 "
   >
     <!-- Left Section -->
     <div>

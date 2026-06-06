@@ -2,7 +2,7 @@
   <tr>
     <!-- Desktop / Tablet -->
     <template v-if="!isMobile">
-      <td class="p-4">
+      <td class="p-3 lg:p-4">
         <div class="flex items-center gap-3">
           <img
             :src="product.image"
@@ -10,8 +10,8 @@
             class="w-10 h-10 rounded-lg object-cover"
           />
 
-          <div>
-            <p class="font-medium">
+          <div class="min-w-0">
+            <p class="font-medium truncate">
               {{ product.name }}
             </p>
 
@@ -21,13 +21,13 @@
           </div>
         </div>
       </td>
-      <td class="p-4">
+      <td class="p-3 lg:p-4">
         {{ product.category }}
       </td>
-      <td class="p-4 font-medium">
+      <td class="p-3 font-medium lg:p-4">
         ${{ product.price }}
       </td>
-      <td class="p-4">
+      <td class="p-3 lg:p-4">
         <span
           class="px-2 py-1 text-xs rounded-full"
           :class="
@@ -39,7 +39,7 @@
           {{ product.stock }}
         </span>
       </td>
-      <td class="p-4">
+      <td class="p-3 lg:p-4">
         <span
           class="px-2 py-1 text-xs rounded-full"
           :class="
@@ -53,17 +53,17 @@
           {{ product.status }}
         </span>
       </td>
-      <td class="p-4">
-        <div class="flex gap-2">
+      <td class="p-3 lg:p-4">
+        <div class="flex flex-col gap-2 lg:flex-row">
           <button
             @click="$emit('edit', product)"
-            class="px-3 py-1 text-xs bg-blue-500 text-white rounded-lg hover:bg-blue-600"
+            class="px-1.5 py-1 text-[11px] leading-none bg-blue-500 text-white rounded-md hover:bg-blue-600 lg:px-3 lg:text-xs"
           >
             Edit
           </button>
           <button
             @click="$emit('remove', product)"
-            class="px-3 py-1 text-xs bg-red-500 text-white rounded-lg hover:bg-red-600"
+            class="px-1.5 py-1 text-[11px] leading-none bg-red-500 text-white rounded-md hover:bg-red-600 lg:px-3 lg:text-xs"
           >
             Remove
           </button>
@@ -77,7 +77,7 @@
       colspan="6"
       class="p-3"
     >
-      <div class=" hover:scale-102 transition-transform duration-200 rounded-xl p-4 bg-white shadow-sm">
+      <div class="w-full transition-transform duration-200 rounded-xl p-4 bg-white shadow-sm">
 
         <div class="flex items-center gap-3">
           <img

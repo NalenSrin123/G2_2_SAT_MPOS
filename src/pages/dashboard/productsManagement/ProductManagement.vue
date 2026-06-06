@@ -222,6 +222,25 @@
       </div>
     </div>
 
+    <!-- Success Modal -->
+    <div
+      v-if="showSuccessModal"
+      class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+    >
+      <div class="bg-white p-6 rounded-lg w-80 shadow-lg text-center">
+        <h2 class="text-lg font-bold text-green-600">
+          {{ successMessage }}
+        </h2>
+
+        <button
+          @click="showSuccessModal = false"
+          class="mt-5 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -245,6 +264,8 @@ const itemsPerPage = 5
 const showAddModal = ref(false)
 const showEditModal = ref(false)
 const showDeleteModal = ref(false)
+const showSuccessModal = ref(false)
+const successMessage = ref('')
 
 const selectedProduct = ref(null)
 
@@ -443,6 +464,7 @@ const updateProduct = () => {
       : 'Active'
 
   showEditModal.value = false
+  showSuccess('Update success')
 }
 
 // Delete Modal
@@ -462,7 +484,14 @@ const confirmDelete = () => {
   )
 
   closeModal()
+  showSuccess('Remove success')
 }
+
+const showSuccess = (message) => {
+  successMessage.value = message
+  showSuccessModal.value = true
+}
+
 const totalProducts = computed(() => products.value.length)
 
 const lowStockProducts = computed(() =>
