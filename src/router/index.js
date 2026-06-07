@@ -36,6 +36,7 @@ import Customers from '@/pages/dashboard/Customers.vue'
 import Reports from '@/pages/dashboard/Reports.vue'
 import Settings from '@/pages/dashboard/Settings.vue'
 import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
+import Add_New_Products from '../pages/dashboard/productsManagement/Add_New_Products.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -61,6 +62,7 @@ const routes = [
   { path: '/list_inventory', name: 'Design_list_inventory', component: Design_list_inventory, meta: { layout: 'dashboard' } },
   { path: '/order', name: 'OrderList', component: OrderList, meta: { layout: 'dashboard' } },
   { path: '/products', component: productsManagement, meta: { layout: 'dashboard' } },
+  { path: '/add_new_products', name: 'Add_New_Products', component: Add_New_Products, meta: { layout: 'dashboard' } },
   { path: '/create_product', name: 'Design_Form_Create_Product', component: Design_Form_Create_Product, meta: { layout: 'dashboard' } },
   { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
