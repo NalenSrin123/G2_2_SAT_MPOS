@@ -228,13 +228,17 @@
       class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
     >
       <div class="bg-white p-6 rounded-lg w-80 shadow-lg text-center">
-        <h2 class="text-lg font-bold text-green-600">
+        <h2
+          class="text-lg font-bold"
+          :class="successModalClass"
+        >
           {{ successMessage }}
         </h2>
 
         <button
           @click="showSuccessModal = false"
-          class="mt-5 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+          class="mt-5 px-4 py-2 text-white rounded-lg"
+          :class="successButtonClass"
         >
           OK
         </button>
@@ -266,13 +270,14 @@ const showEditModal = ref(false)
 const showDeleteModal = ref(false)
 const showSuccessModal = ref(false)
 const successMessage = ref('')
+const successType = ref('update')
 
 const selectedProduct = ref(null)
 
 
 const addForm = ref({
   name: '',
-  category: 'Electronics',
+  category: 'Snacks',
   price: 0,
   stock: 0,
   image: null,
@@ -464,7 +469,7 @@ const updateProduct = () => {
       : 'Active'
 
   showEditModal.value = false
-  showSuccess('Update success')
+  showSuccess('Update success', 'update')
 }
 
 // Delete Modal
@@ -484,13 +489,26 @@ const confirmDelete = () => {
   )
 
   closeModal()
-  showSuccess('Remove success')
+  showSuccess('Remove success', 'remove')
 }
 
-const showSuccess = (message) => {
+const showSuccess = (message, type = 'update') => {
   successMessage.value = message
+  successType.value = type
   showSuccessModal.value = true
 }
+
+const successModalClass = computed(() =>
+  successType.value === 'remove'
+    ? 'text-red-600'
+    : 'text-[#002f87]'
+)
+
+const successButtonClass = computed(() =>
+  successType.value === 'remove'
+    ? 'bg-red-600 hover:bg-red-700'
+    : 'bg-[#002f87] hover:bg-blue-900'
+)
 
 const totalProducts = computed(() => products.value.length)
 
