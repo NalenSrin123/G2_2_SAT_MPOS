@@ -25,7 +25,7 @@
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
             Filters
           </button>
-          <button class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+          <button @click="exportCSV" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             Export CSV
           </button>
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-            <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-50/50 transition-colors group">
+            <tr v-for="order in filteredOrders" :key="order.id" class="hover:bg-gray-50/50 transition-colors group">
               <td class="py-4 px-6 align-top">
                 <div class="text-[#1a4b9c] font-black text-sm tracking-wide mt-1">{{ order.id }}</div>
               </td>
@@ -143,7 +143,7 @@
 
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 const tabs = ['All Orders', 'Pending', 'Completed', 'Cancelled']
 const activeTab = ref('All Orders')
 const orders = ref([
@@ -198,6 +198,42 @@ const orders = ref([
     status: 'PENDING'
   }
 ])
+
+const filteredOrders = computed(() => {
+  if (activeTab.value === 'All Orders') {
+    return orders.value
+  }
+  return orders.value.filter(order => order.status === activeTab.value.toUpperCase())
+})
+
+const exportCSV = () => {
+  const headers = ['Order ID', 'Customer Name', 'Date', 'Time', 'Items', 'Total Price', 'Status']
+  const rows = filteredOrders.value.map(order => {
+    return [
+      order.id,
+      order.customerName.replace(/\n/g, ' '),
+      order.date,
+      order.time,
+      order.items,
+      order.totalPrice,
+      order.status
+    ].map(field => `"${field}"`).join(',')
+  })
+  
+  const csvContent = [headers.join(','), ...rows].join('\n')
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+  const link = document.createElement('a')
+  const url = URL.createObjectURL(blob)
+  
+  link.setAttribute('href', url)
+  link.setAttribute('download', 'orders.csv')
+  link.style.visibility = 'hidden'
+  
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+}
+
 const pages = [1, 2, 3, '...', 25]
 </script>
 <style scoped>
