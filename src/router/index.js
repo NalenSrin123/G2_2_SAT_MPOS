@@ -36,6 +36,7 @@ import Customers from '@/pages/dashboard/Customers.vue'
 import Reports from '@/pages/dashboard/Reports.vue'
 import Settings from '@/pages/dashboard/Settings.vue'
 import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
+import CategoryManagementView from '../pages/dashboard/productsManagement/CategoryManagementView.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -65,6 +66,8 @@ const routes = [
   { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
+  { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
+  
   
   /**
    * Authentication routes
