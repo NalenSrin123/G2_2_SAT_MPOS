@@ -29,10 +29,10 @@ import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
 import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
-
 import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
+import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
 
 /**
  * Route definitions
@@ -97,6 +97,12 @@ const routes = [
     path: "/create_product",
     name: "Design_Form_Create_Product",
     component: Design_Form_Create_Product,
+  },
+  //Create_Catecory
+  {
+    path: "/create_catecory",
+    name: "Design_Page_Create_Catecory",
+    component: Create_Catecory,
   }
 
 ]

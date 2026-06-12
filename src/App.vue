@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Sidebar from './components/Sidebar.vue';
+
 
 </script>
 
@@ -25,6 +25,6 @@ import Sidebar from './components/Sidebar.vue';
 
 <template>
   <!-- Router outlet: renders matched route component -->
-   <Sidebar/>
+   
   <RouterView />
 </template>
