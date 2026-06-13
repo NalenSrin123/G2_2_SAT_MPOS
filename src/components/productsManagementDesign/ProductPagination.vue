@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white border rounded-lg p-3 flex justify-between items-center">
+  <div class="bg-white  rounded-lg p-3 flex justify-between items-center">
 
     <p class="text-sm text-gray-500">
       Showing {{ start }} - {{ end }} of {{ total }}

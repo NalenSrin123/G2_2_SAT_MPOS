@@ -1,26 +1,82 @@
 <template>
-  <div
-    class="bg-white  rounded-xl p-4 flex flex-col lg:flex-row gap-4 justify-between shadow-sm"
-  >
-    <div class="flex flex-wrap gap-2 items-center">
-      <button
-        v-for="category in categories"
-        :key="category"
-        @click="$emit('change-category', category)"
-        class="px-4 py-2 rounded-full text-sm border transition"
-        :class="
-          selectedCategory === category
-            ? 'bg-blue-600 text-white border-blue-600'
-            : 'bg-gray-50 hover:bg-gray-100 text-gray-700 border-gray-200'
-        "
-      >
-        {{ category }}
-      </button>
-    </div>
-
+  <div class="bg-white rounded-xl p-4 shadow-sm">
     <div
-      class="w-full lg:w-auto flex flex-col md:flex-row gap-3 items-stretch md:items-center"
+      class="w-full flex flex-col md:flex-row gap-3 items-stretch md:items-center md:justify-start"
     >
+      <div class="relative w-full sm:w-72">
+        <button
+          @click="open = !open"
+          class="w-full border px-3 py-2 rounded-lg flex justify-between items-center hover:bg-gray-50"
+        >
+          <span class="text-sm text-gray-700 truncate">
+            {{ filterLabel }}
+          </span>
+
+          <svg
+            class="w-4 h-4 text-gray-500 shrink-0"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+
+        <div
+          v-if="open"
+          class="absolute z-50 mt-2 w-full max-h-96 overflow-auto bg-white border rounded-lg shadow-lg p-2 space-y-2"
+        >
+          <div class="text-xs font-bold text-gray-500 px-2">Category</div>
+
+          <button
+            v-for="category in categories"
+            :key="category"
+            @click="selectCategory(category)"
+            class="w-full text-left px-3 py-2 rounded text-sm"
+            :class="
+              selectedCategory === category
+                ? 'bg-blue-50 text-blue-700 font-medium'
+                : 'hover:bg-gray-100 text-gray-700'
+            "
+          >
+            {{ category }}
+          </button>
+
+          <div class="text-xs font-bold text-gray-500 px-2 mt-2">Price</div>
+
+          <button
+            @click="selectSort('price_desc')"
+            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
+          >
+            Price High -> Low
+          </button>
+
+          <button
+            @click="selectSort('price_asc')"
+            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
+          >
+            Price Low -> High
+          </button>
+
+          <div class="text-xs font-bold text-gray-500 px-2 mt-2">Stock</div>
+
+          <button
+            @click="selectSort('stock_desc')"
+            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
+          >
+            Stock High -> Low
+          </button>
+
+          <button
+            @click="selectSort('stock_asc')"
+            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
+          >
+            Stock Low -> High
+          </button>
+        </div>
+      </div>
+
       <div class="relative w-full sm:w-64">
         <input
           v-model="search"
@@ -43,64 +99,6 @@
             d="m21 21-5.197-5.197M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
           />
         </svg>
-      </div>
-
-      <div class="relative w-full sm:w-64">
-        <button
-          @click="open = !open"
-          class="w-full border px-3 py-2 rounded-lg flex justify-between items-center hover:bg-gray-50"
-        >
-          <span class="text-sm text-gray-700">
-            {{ sortLabel }}
-          </span>
-
-          <svg
-            class="w-4 h-4 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-          >
-            <path d="M19 9l-7 7-7-7" />
-          </svg>
-        </button>
-
-        <div
-          v-if="open"
-          class="absolute z-50 mt-2 w-full bg-white border rounded-lg shadow-lg p-2 space-y-2"
-        >
-          <div class="text-xs font-bold text-gray-500 px-2">Price</div>
-
-          <button
-            @click="selectSort('price_desc')"
-            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
-          >
-            Price High → Low
-          </button>
-
-          <button
-            @click="selectSort('price_asc')"
-            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
-          >
-            Price Low → High
-          </button>
-
-          <div class="text-xs font-bold text-gray-500 px-2 mt-2">Stock</div>
-
-          <button
-            @click="selectSort('stock_desc')"
-            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
-          >
-            Stock High → Low
-          </button>
-
-          <button
-            @click="selectSort('stock_asc')"
-            class="w-full text-left px-3 py-2 rounded hover:bg-gray-100 text-sm"
-          >
-            Stock Low → High
-          </button>
-        </div>
       </div>
 
       <button
@@ -157,6 +155,11 @@ watch(
   { immediate: true }
 )
 
+const selectCategory = (category) => {
+  emit('change-category', category)
+  open.value = false
+}
+
 const selectSort = (value) => {
   currentSort.value = value
   localStorage.setItem('sortOption', value)
@@ -176,19 +179,28 @@ const resetFilters = () => {
   open.value = false
 }
 
-// sort label based on current sort option
 const sortLabel = computed(() => {
   switch (currentSort.value) {
     case 'price_asc':
-      return 'Price Low → High'
+      return 'Price Low -> High'
     case 'price_desc':
-      return 'Price High → Low'
+      return 'Price High -> Low'
     case 'stock_asc':
-      return 'Stock Low → High'
+      return 'Stock Low -> High'
     case 'stock_desc':
-      return 'Stock High → Low'
+      return 'Stock High -> Low'
     default:
       return 'Sort By'
   }
+})
+
+const filterLabel = computed(() => {
+  const categoryLabel = props.selectedCategory || 'All Products'
+
+  if (!currentSort.value) {
+    return categoryLabel
+  }
+
+  return `${categoryLabel} / ${sortLabel.value}`
 })
 </script>
