@@ -77,7 +77,7 @@
 <script setup>
 
 import { ref } from "vue";
-import resetPassImg from "@/assets/reset-pass.png";
+import resetPassImg from "@/assets/reset-pass.jpg";
 
 
 const email = ref("");
