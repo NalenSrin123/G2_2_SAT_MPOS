@@ -40,6 +40,8 @@ import Add_New_Products from '../pages/dashboard/productsManagement/Add_New_Prod
 import CategoryManagementView from '../pages/dashboard/productsManagement/CategoryManagementView.vue'
 import Order_page from '@/pages/dashboard/Order_page.vue'
 
+import Sidebar from '@/components/Sidebar.vue'
+import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
 
 /**
  * Route definitions
@@ -101,6 +103,21 @@ const routes = [
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+  { path: '/products_management', component: productsManagement },
+
+  //Create_Product
+  {
+    path: "/create_product",
+    name: "Design_Form_Create_Product",
+    component: Design_Form_Create_Product,
+  },
+  //Create_Catecory
+  {
+    path: "/create_catecory",
+    name: "Design_Page_Create_Catecory",
+    component: Create_Catecory,
+  }
+
 ]
 
 /**

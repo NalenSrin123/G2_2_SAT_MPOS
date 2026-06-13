@@ -313,7 +313,9 @@
     </section>
   </main>
 </template>
-<script setup></script>
+<script setup>
+
+</script>
 
 <style>
 .icon {
