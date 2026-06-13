@@ -17,3 +17,4 @@ const showSidebar = computed(() => route.meta.layout === 'dashboard')
 
   <RouterView v-else />
 </template>
+
