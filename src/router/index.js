@@ -24,7 +24,7 @@ import Design_list_inventory from '@/pages/dashboard/Design_list _inventory.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
-import Home from '@/pages/home/Home.vue'
+// import Home from '@/pages/home/home.vue'
 import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
 import Design_register_page from '@/pages/auth/Design_register_page.vue'
@@ -38,6 +38,9 @@ import Settings from '@/pages/dashboard/Settings.vue'
 import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
 import Add_New_Products from '../pages/dashboard/productsManagement/Add_New_Products.vue'
 import CategoryManagementView from '../pages/dashboard/productsManagement/CategoryManagementView.vue'
+import Order_page from '@/pages/dashboard/Order_page.vue'
+
+
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -69,8 +72,11 @@ const routes = [
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
+
   
-  
+
+ 
+
   /**
    * Authentication routes
    */
@@ -88,7 +94,7 @@ const routes = [
    * Uncomment when switching from preview to real landing page
    */
   // { path: '/', component: Home },
-  { path: '/home', component: Home },
+  // { path: '/home', component: Home },
 
   /**
    * Catch-all route
