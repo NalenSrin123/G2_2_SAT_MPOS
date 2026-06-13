@@ -1,3 +1,4 @@
+```vue
 <template>
   <div class="bg-gray-200 p-6 rounded-lg h-full">
     <!-- Header -->
@@ -6,14 +7,15 @@
     </div>
 
     <!-- Category Table -->
-    <div class="bg-white rounded-xl shadow overflow-hidden">
+    <div class="bg-white rounded-xl border border-gray-300 overflow-hidden">
       <table class="w-full">
-        <thead class="bg-gray-100">
+        <thead class="bg-gray-100 border-b">
           <tr>
             <th class="p-4 text-left font-semibold">ID</th>
             <th class="p-4 text-left font-semibold">Category Name</th>
             <th class="p-4 text-left font-semibold">Products</th>
             <th class="p-4 text-left font-semibold">Status</th>
+            <th class="p-4 text-center font-semibold">Actions</th>
           </tr>
         </thead>
 
@@ -21,18 +23,36 @@
           <tr
             v-for="category in categories"
             :key="category.id"
-            class="border-t hover:bg-gray-50"
+            class="border-b hover:bg-gray-50"
           >
-            <td class="p-4">{{ category.id }}</td>
-
-            <td class="p-4 font-medium">
-              {{ category.name }}
-            </td>
-
+            <!-- ID -->
             <td class="p-4">
-              {{ category.totalProducts }}
+              {{ category.id }}
             </td>
 
+            <!-- Category Name -->
+            <td class="p-4">
+              <div>
+                <p class="font-semibold text-gray-900">
+                  {{ category.name }}
+                </p>
+
+                <p class="text-sm text-gray-500">
+                  CAT-{{ String(category.id).padStart(3, "0") }}
+                </p>
+              </div>
+            </td>
+
+            <!-- Products -->
+            <td class="p-4">
+              <span
+                class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
+              >
+                {{ category.totalProducts }}
+              </span>
+            </td>
+
+            <!-- Status -->
             <td class="p-4">
               <span
                 :class="
@@ -45,11 +65,28 @@
                 {{ category.status }}
               </span>
             </td>
+
+            <!-- Actions -->
+            <td class="p-4">
+              <div class="flex justify-center gap-2">
+                <button
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
+                >
+                  Edit
+                </button>
+
+                <button
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm"
+                >
+                  Delete
+                </button>
+              </div>
+            </td>
           </tr>
 
           <!-- Empty State -->
           <tr v-if="categories.length === 0">
-            <td colspan="4" class="p-6 text-center text-gray-500">
+            <td colspan="5" class="p-6 text-center text-gray-500">
               No categories found.
             </td>
           </tr>
@@ -95,3 +132,4 @@ const categories = ref([
   },
 ]);
 </script>
+```
