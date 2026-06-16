@@ -3,7 +3,23 @@ const iconStroke = 'h-[18px] w-[18px] fill-none stroke-current stroke-2 [stroke-
 const smallIconStroke = 'h-[17px] w-[17px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]'
 const tableHeadClass = 'border-b border-[#f0f2f5] px-3 py-3 text-left text-[9px] font-semibold leading-tight tracking-[1.5px] text-[#777d8c] md:px-4 md:py-4 md:text-[10px] md:tracking-[3px] xl:px-5'
 const tableCellClass = 'border-b border-[#f0f2f5] px-3 py-3 align-middle text-xs text-[#3f4653] md:px-4 md:py-4 md:text-sm xl:px-5'
+import * as XLSX from "xlsx";
+const exportExcel = () => {
+  const data = items.map(item => ({
+    'Item Name': item.name,
+    'SKU': item.sku,
+    'Category': item.category,
+    'Current Stock': item.stock,
+    'Unit': item.unit,
+    'Last Restocked': item.restocked,
+    'Status': item.status,
+  }));
 
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "Inventory");
+  XLSX.writeFile(workbook, "inventory_data.xlsx");
+}
 const stats = [
   {
     label: 'TOTAL SKU VALUE',
@@ -99,7 +115,7 @@ const items = [
               <path d="M12 3v10m0 0 4-4m-4 4-4-4" />
               <path d="M5 17v3h14v-3" />
             </svg>
-            <span>Export CSV</span>
+            <path @click="exportExcel" >Export CSV</path>
           </button>
           <button
             class="inline-flex h-12 w-full cursor-pointer items-center justify-center gap-2.5 whitespace-nowrap rounded-md border-0 bg-[#00449e] px-4 text-sm font-bold text-white shadow-[0_8px_18px_rgba(0,68,158,0.24)] transition duration-200 hover:-translate-y-px min-[821px]:h-11 min-[821px]:w-auto min-[821px]:px-4.5"

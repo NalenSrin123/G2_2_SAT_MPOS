@@ -1,6 +1,6 @@
 <template>
   <span
-    class="px-3 py-1 rounded-full text-xs font-medium"
+    class="inline-flex px-3 py-1 rounded-md text-[10px] uppercase font-bold tracking-wider"
     :class="badgeClass"
   >
     {{ status }}
@@ -20,10 +20,10 @@ const props = defineProps({
 const badgeClass = computed(() => {
   switch (props.status) {
     case 'Active':
-      return 'bg-green-100 text-green-600'
+      return 'bg-[#dcfce7] text-[#166534]'
 
     case 'Low Stock':
-      return 'bg-red-100 text-red-600'
+      return 'bg-[#fee2e2] text-[#991b1b]'
 
     case 'Draft':
       return 'bg-gray-200 text-gray-600'

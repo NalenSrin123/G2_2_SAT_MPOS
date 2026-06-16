@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full p-4 border-t"
+    class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 w-full p-4 "
   >
     <!-- Left Section -->
     <div>
@@ -30,7 +30,9 @@
             d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
           />
         </svg>
-        <span>Add New Product</span>
+        <router-link to="/add_new_products">
+          Add New Product
+        </router-link>
       </button>
     </div>
   </div>

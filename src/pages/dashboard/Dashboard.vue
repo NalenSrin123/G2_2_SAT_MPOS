@@ -132,12 +132,6 @@
 </template>
 
 <script setup>
-import {
-  Wallet,
-  ShoppingBag,
-  CreditCard,
-  User
-} from "lucide-vue-next";
 
 import {
   Chart as ChartJS,
