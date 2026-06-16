@@ -33,6 +33,7 @@ import productsManagement from '@/pages/dashboard/productsManagement/ProductMana
 
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import Design_Main_menu from '../pages/home/home/Design_Main_menu.vue'
 
 /**
  * Route definitions
@@ -103,6 +104,11 @@ const routes = [
     path: "/create_catecory",
     name: "Design_Page_Create_Catecory",
     component: Create_Catecory,
+  },
+  {
+    path: "/main-menu",
+    name: "menu",
+    component: Design_Main_menu,
   }
 
 ]
