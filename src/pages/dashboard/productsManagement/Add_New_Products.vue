@@ -7,13 +7,13 @@
         class="flex flex-col gap-5 border-b border-slate-200 pb-5 lg:flex-row lg:items-end lg:justify-between"
       >
         <div class="space-y-3">
-          <button
+          <router-link to="/products"
             type="button"
             class="inline-flex items-center gap-2 rounded-lg px-1 py-1 text-sm font-medium text-slate-600 transition hover:text-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-100"
           >
             <span aria-hidden="true" class="text-lg leading-none">&larr;</span>
             Back to Products
-          </button>
+          </router-link>
 
           <div>
             <h1 class="mt-1 text-3xl font-bold text-slate-950 sm:text-4xl">
@@ -29,6 +29,7 @@
 
         <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center">
           <button
+            @click="saveDraft"
             type="button"
             class="inline-flex h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 shadow-sm transition hover:border-slate-400 hover:bg-slate-50 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-slate-200"
           >
@@ -36,6 +37,7 @@
           </button>
 
           <button
+            @click="createProduct"
             type="submit"
             form="create-product-form"
             class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
@@ -69,13 +71,13 @@
 
             <div class="space-y-5 p-5">
               <div>
-                <label class="mb-2 block text-sm font-semibold text-slate-700">
+                <label class="mb-2  block text-sm font-semibold text-slate-700">
                   Product Name
                 </label>
                 <input
                   type="text"
                   placeholder="e.g. Wireless Noise-Cancelling Headphones"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -89,7 +91,7 @@
                   <input
                     type="text"
                     placeholder="NX-PR-001"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                   />
                 </div>
 
@@ -101,7 +103,7 @@
                   </label>
                   <div class="relative">
                     <select
-                      class="w-full appearance-none rounded-lg border border-slate-300 bg-white px-4 py-3 pr-10 text-sm text-slate-900 outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                      class="w-full appearance-none rounded-lg border border-slate-300 bg-white px-4 py-3 pr-10 text-sm text-slate-900 outline-none transition focus:border-black  focus:ring-blue-100"
                     >
                       <option selected>Select Category</option>
                       <option>Lorem ipsum dolor sit amet.</option>
@@ -122,7 +124,7 @@
                 <textarea
                   rows="5"
                   placeholder="Detailed product specifications and features..."
-                  class="min-h-32 w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="min-h-32 w-full resize-y rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm leading-6 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 ></textarea>
               </div>
             </div>
@@ -153,7 +155,7 @@
                   type="number"
                   inputmode="decimal"
                   placeholder="$ 0.00"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -165,7 +167,7 @@
                   type="number"
                   inputmode="decimal"
                   placeholder="$ 0.00"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -177,7 +179,7 @@
                   type="number"
                   inputmode="numeric"
                   placeholder="0"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -189,7 +191,7 @@
                   <input
                     type="text"
                     placeholder="e.g. 0.5"
-                    class="min-w-0 flex-1 rounded-l-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:z-10 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                    class="min-w-0 flex-1 rounded-l-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:z-10 focus:border-black  focus:ring-blue-100"
                   />
                   <span
                     class="inline-flex items-center rounded-r-lg border border-l-0 border-slate-300 bg-slate-50 px-4 text-sm font-semibold text-slate-600"
@@ -277,7 +279,7 @@
                 <input
                   type="text"
                   placeholder="Search suppliers..."
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -288,7 +290,7 @@
                 <input
                   type="text"
                   placeholder="Add tags (separated by commas)"
-                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-black  focus:ring-blue-100"
                 />
               </div>
 
@@ -314,7 +316,13 @@
   </main>
 </template>
 <script setup>
+const saveDraft = () => {
+  alert("Saved as Draft")
+}
 
+const createProduct = () => {
+  alert("Product Created")
+}
 </script>
 
 <style>

@@ -24,10 +24,10 @@ import Design_list_inventory from '@/pages/dashboard/Design_list _inventory.vue'
 import Login from '@/pages/auth/Login.vue'
 import Register from '@/pages/auth/Register.vue'
 import Preview from '@/pages/preview/Preview.vue'
-import Home from '@/pages/home/Home.vue'
+// import Home from '@/pages/home/home.vue'
 import NotFound from '@/pages/NotFound.vue'
 import ResetPassword from '../pages/auth/ResetPassword.vue'
-import Design_register_page from '@/pages/auth/Design_register_page.vue'
+import Design_register_page from '@/pages/auth/design_register_page.vue'
 import Design_Form_Create_Product from '../pages/dashboard/Design_Form_Create_Product.vue'
 import Dashboard from '@/pages/dashboard/Dashboard.vue'
 import productsManagement from '@/pages/dashboard/productsManagement/ProductManagement.vue'
@@ -36,6 +36,13 @@ import Customers from '@/pages/dashboard/Customers.vue'
 import Reports from '@/pages/dashboard/Reports.vue'
 import Settings from '@/pages/dashboard/Settings.vue'
 import Design_confirm_otp_page from '@/pages/auth/Design_confirm_otp_page.vue'
+import Add_New_Products from '../pages/dashboard/productsManagement/Add_New_Products.vue'
+import CategoryManagementView from '../pages/dashboard/productsManagement/CategoryManagementView.vue'
+import Order_page from '@/pages/dashboard/Order_page.vue'
+
+import Sidebar from '@/components/Sidebar.vue'
+import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -61,11 +68,17 @@ const routes = [
   { path: '/list_inventory', name: 'Design_list_inventory', component: Design_list_inventory, meta: { layout: 'dashboard' } },
   { path: '/order', name: 'OrderList', component: OrderList, meta: { layout: 'dashboard' } },
   { path: '/products', component: productsManagement, meta: { layout: 'dashboard' } },
+  { path: '/add_new_products', name: 'Add_New_Products', component: Add_New_Products, meta: { layout: 'dashboard' } },
   { path: '/create_product', name: 'Design_Form_Create_Product', component: Design_Form_Create_Product, meta: { layout: 'dashboard' } },
   { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
+  { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
+
   
+
+ 
+
   /**
    * Authentication routes
    */
@@ -83,13 +96,28 @@ const routes = [
    * Uncomment when switching from preview to real landing page
    */
   // { path: '/', component: Home },
-  { path: '/home', component: Home },
+  // { path: '/home', component: Home },
 
   /**
    * Catch-all route
    * Displays a styled 404 page for unknown paths
    */
   { path: '/:pathMatch(.*)*', component: NotFound },
+  { path: '/products_management', component: productsManagement },
+
+  //Create_Product
+  {
+    path: "/create_product",
+    name: "Design_Form_Create_Product",
+    component: Design_Form_Create_Product,
+  },
+  //Create_Catecory
+  {
+    path: "/create_catecory",
+    name: "Design_Page_Create_Catecory",
+    component: Create_Catecory,
+  }
+
 ]
 
 /**

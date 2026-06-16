@@ -8,6 +8,11 @@
         <div
           class="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center"
         >
+        <img
+            :src="resetPassImg"
+            alt="Reset Password"
+            class="w-100 h-100 object-contain"
+          />
         </div>
       </div>
 
@@ -72,6 +77,8 @@
 <script setup>
 
 import { ref } from "vue";
+import resetPassImg from "@/assets/reset-pass.jpg";
+
 
 const email = ref("");
 
