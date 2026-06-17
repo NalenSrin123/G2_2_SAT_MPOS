@@ -42,6 +42,8 @@ import Order_page from '@/pages/dashboard/Order_page.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import Design_confirm_payment from '../pages/home/home/design_confirm_payment.vue'
+
 
 /**
  * Route definitions
@@ -116,9 +118,16 @@ const routes = [
     path: "/create_catecory",
     name: "Design_Page_Create_Catecory",
     component: Create_Catecory,
-  }
+  },
+  //design_confirm_payment
+ {
+  path: "/confirm_payment",
+  name: "Design_confirm_payment",
+  component: Design_confirm_payment,
+}
 
 ]
+
 
 /**
  * Router instance configuration
