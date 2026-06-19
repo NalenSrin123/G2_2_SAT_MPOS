@@ -42,6 +42,7 @@ import Order_page from '@/pages/dashboard/Order_page.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import cart_items_page from '../pages/cart_items_page.vue'
 
 /**
  * Route definitions
@@ -74,7 +75,7 @@ const routes = [
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
-
+  { path: '/cart', component: cart_items_page, meta: { layout: 'dashboard' } },
   
 
  
