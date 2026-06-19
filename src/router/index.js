@@ -42,6 +42,7 @@ import Order_page from '@/pages/dashboard/Order_page.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
 
 /**
  * Route definitions
@@ -97,6 +98,7 @@ const routes = [
    */
   // { path: '/', component: Home },
   // { path: '/home', component: Home },
+  { path: '/payment-method', component: PaymentMethods },
 
   /**
    * Catch-all route
