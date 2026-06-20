@@ -189,7 +189,11 @@
           </button>
 
           <button
-            class="w-full mt-3 text-blue-600 font-medium py-2"
+            class="group mt-3 w-full flex justify-center items-center gap-2
+         text-blue-600 font-medium
+          transition-all duration-300
+          hover:text-blue-800"
+            @click="backToCart"
           >
             Back to Cart
           </button>
@@ -201,6 +205,13 @@
 
 <script setup>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const backToCart = () => {
+  router.push('/cart');
+};
 
 const selectedMethod = ref(1);
 

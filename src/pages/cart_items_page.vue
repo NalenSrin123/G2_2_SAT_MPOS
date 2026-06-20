@@ -1,5 +1,12 @@
 <script setup>
 import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const goToPaymentMethod = () => {
+  router.push('/payment-method');
+};
 
 const items = ref([
   {
@@ -121,7 +128,10 @@ const removeItem = (id) => {
 
     <!-- Bottom Bar -->
     <div class="bottom-bar">
-      <button class="place-order-btn">
+      <button 
+        class="place-order-btn"
+        @click="goToPaymentMethod"
+      >
         <span>Place Order</span>
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
       </button>
