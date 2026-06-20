@@ -45,6 +45,7 @@ import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
 import Design_Main_menu from '../pages/home/home/Design_Main_menu.vue'
 import Design_confirm_payment from '../pages/home/home/design_confirm_payment.vue'
 
+import cart_items_page from '../pages/cart_items_page.vue'
 
 /**
  * Route definitions
@@ -77,7 +78,7 @@ const routes = [
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
-
+  { path: '/cart', component: cart_items_page, meta: { layout: 'dashboard' } },
   
 
  
