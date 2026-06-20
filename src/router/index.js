@@ -46,6 +46,7 @@ import Design_Main_menu from '../pages/home/home/Design_Main_menu.vue'
 import Design_confirm_payment from '../pages/home/home/design_confirm_payment.vue'
 
 import cart_items_page from '../pages/cart_items_page.vue'
+import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
 
 /**
  * Route definitions
@@ -101,6 +102,7 @@ const routes = [
    */
   // { path: '/', component: Home },
   // { path: '/home', component: Home },
+  { path: '/payment-method', component: PaymentMethods },
 
   /**
    * Catch-all route
