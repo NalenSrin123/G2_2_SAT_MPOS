@@ -1,18 +1,12 @@
 <script setup>
 import { ref } from 'vue'
-import * as XLSX from "xlsx";
-
-const iconStroke =
-  'h-[18px] w-[18px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]'
-
-const smallIconStroke =
-  'h-[17px] w-[17px] fill-none stroke-current stroke-2 [stroke-linecap:round] [stroke-linejoin:round]'
+import * as XLSX from 'xlsx'
 
 const tableHeadClass =
-  'border-b border-[#f0f2f5] px-3 py-3 text-left text-[9px] font-semibold leading-tight tracking-[1.5px] text-[#777d8c] md:px-4 md:py-4 md:text-[10px] md:tracking-[3px] xl:px-5'
+  'border-b px-4 py-3 text-left text-xs font-semibold text-gray-500'
 
 const tableCellClass =
-  'border-b border-[#f0f2f5] px-3 py-3 align-middle text-xs text-[#3f4653] md:px-4 md:py-4 md:text-sm xl:px-5'
+  'border-b px-4 py-3 text-sm text-gray-700'
 
 // Inventory Items
 const items = ref([
@@ -24,8 +18,8 @@ const items = ref([
     unit: 'Units',
     restocked: 'Oct 24, 2023',
     status: 'Low Stock',
-    statusClass: 'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]',
-    icon: 'scanner',
+    statusClass:
+      'border border-red-200 bg-red-50 text-red-600',
   },
   {
     name: 'Nexus Connector Cable 3m',
@@ -35,8 +29,8 @@ const items = ref([
     unit: 'Meters',
     restocked: 'Nov 02, 2023',
     status: 'Optimal',
-    statusClass: 'bg-[#dff8e9] text-[#14994c]',
-    icon: 'cable',
+    statusClass:
+      'bg-green-100 text-green-700',
   },
   {
     name: 'POS Terminal Mount V3',
@@ -46,19 +40,8 @@ const items = ref([
     unit: 'Units',
     restocked: 'Sep 15, 2023',
     status: 'Critical',
-    statusClass: 'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]',
-    icon: 'terminal',
-  },
-  {
-    name: 'ARM Processor Core-X',
-    sku: 'NX-CPU-82',
-    category: 'HARDWARE',
-    stock: 128,
-    unit: 'Units',
-    restocked: 'Nov 10, 2023',
-    status: 'Optimal',
-    statusClass: 'bg-[#dff8e9] text-[#14994c]',
-    icon: 'chip',
+    statusClass:
+      'border border-red-200 bg-red-50 text-red-600',
   },
 ])
 
@@ -68,57 +51,54 @@ const stats = ref([
     label: 'TOTAL SKU VALUE',
     value: '$1,482,920.00',
     note: '+4.2% from last month',
-    noteClass: 'text-green-600 font-bold',
-    auraClass: 'bg-[#eaf2ff]',
-    iconClass: 'bg-[#ddecff] text-[#0056bc]',
-    icon: 'money',
+    noteClass: 'text-green-600',
   },
   {
     label: 'LOW STOCK ALERTS',
-    value: '18 Items',
+    value: '2 Items',
     note: 'Requires immediate action',
-    noteClass: 'text-[#cf1111] font-bold',
-    auraClass: 'bg-[#fff0f0]',
-    iconClass: 'bg-[#ffe1e1] text-[#e03131]',
-    icon: 'warning',
+    noteClass: 'text-red-600',
   },
   {
     label: 'RECENT RESTOCKS',
     value: '242 Units',
     note: 'Last delivery: 4 hours ago',
-    noteClass: 'text-[#7a8496] font-medium',
-    auraClass: 'bg-[#e5fbff]',
-    iconClass: 'bg-[#177e8c] text-white',
-    icon: 'truck',
+    noteClass: 'text-gray-500',
   },
 ])
+
+const isEditing = ref(false)
+const tempStocks = ref({})
 
 // Export Excel
 const exportExcel = () => {
   const data = items.value.map(item => ({
     'Item Name': item.name,
-    'SKU': item.sku,
-    'Category': item.category,
-    'Current Stock': item.stock,
-    'Unit': item.unit,
-    'Last Restocked': item.restocked,
-    'Status': item.status,
+    SKU: item.sku,
+    Category: item.category,
+    Stock: item.stock,
+    Unit: item.unit,
+    Restocked: item.restocked,
+    Status: item.status,
   }))
 
   const worksheet = XLSX.utils.json_to_sheet(data)
+
   const workbook = XLSX.utils.book_new()
 
-  XLSX.utils.book_append_sheet(workbook, worksheet, 'Inventory')
+  XLSX.utils.book_append_sheet(
+    workbook,
+    worksheet,
+    'Inventory'
+  )
 
   XLSX.writeFile(workbook, 'inventory.xlsx')
 }
 
-// Edit Mode
-const isEditing = ref(false)
-const tempStocks = ref({})
-
-// Start Edit
+// Start Restock
 const startRestock = () => {
+  tempStocks.value = {}
+
   items.value.forEach(item => {
     tempStocks.value[item.sku] = item.stock
   })
@@ -126,26 +106,26 @@ const startRestock = () => {
   isEditing.value = true
 }
 
-// Cancel Edit
+// Cancel
 const cancelRestock = () => {
   isEditing.value = false
   tempStocks.value = {}
 }
 
-// Save Edit
+// Save
 const saveRestock = () => {
-  let rawRestockedCount = 0
+  let restockedAmount = 0
 
   items.value.forEach(item => {
-    const updatedValue =
-      parseInt(tempStocks.value[item.sku]) || 0
+    const newStock =
+      Number(tempStocks.value[item.sku]) || 0
 
-    if (updatedValue !== item.stock) {
-      if (updatedValue > item.stock) {
-        rawRestockedCount += updatedValue - item.stock
+    if (newStock !== item.stock) {
+      if (newStock > item.stock) {
+        restockedAmount += newStock - item.stock
       }
 
-      item.stock = updatedValue
+      item.stock = newStock
 
       item.restocked = new Date().toLocaleDateString(
         'en-US',
@@ -159,29 +139,30 @@ const saveRestock = () => {
       if (item.stock <= 3) {
         item.status = 'Critical'
         item.statusClass =
-          'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]'
+          'border border-red-200 bg-red-50 text-red-600'
       } else if (item.stock < 20) {
         item.status = 'Low Stock'
         item.statusClass =
-          'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]'
+          'border border-red-200 bg-red-50 text-red-600'
       } else {
         item.status = 'Optimal'
         item.statusClass =
-          'bg-[#dff8e9] text-[#14994c]'
+          'bg-green-100 text-green-700'
       }
     }
   })
 
-  const newLowStockCount =
-    items.value.filter(i => i.stock < 20).length
+  const lowStockCount =
+    items.value.filter(item => item.stock < 20).length
 
-  stats.value[1].value = `${newLowStockCount} Items`
+  stats.value[1].value = `${lowStockCount} Items`
 
-  if (rawRestockedCount > 0) {
+  if (restockedAmount > 0) {
     stats.value[2].value =
-      `${242 + rawRestockedCount} Units`
+      `${242 + restockedAmount} Units`
 
-    stats.value[2].note = 'Last delivery: Just now'
+    stats.value[2].note =
+      'Last delivery: Just now'
   }
 
   isEditing.value = false
@@ -189,13 +170,13 @@ const saveRestock = () => {
 </script>
 
 <template>
-  <main class="min-h-screen bg-[#f7f8fb] p-5">
-
-    <!-- Header -->
-    <div class="mb-6 flex items-center justify-between">
+  <main class="min-h-screen bg-gray-100 p-6">
+    <div
+      class="mb-6 flex flex-wrap items-center justify-between gap-3"
+    >
       <div>
-        <h1 class="text-3xl font-bold">
-          Inventory Management
+        <h1 class="text-2xl font-bold">
+          Inventory Dashboard
         </h1>
 
         <p class="text-sm text-gray-500">
@@ -203,17 +184,14 @@ const saveRestock = () => {
         </p>
       </div>
 
-      <div class="flex gap-3">
-
-        <!-- Export -->
+      <div class="flex gap-2">
         <button
           @click="exportExcel"
-          class="rounded bg-blue-500 px-4 py-2 text-white"
+          class="rounded bg-blue-600 px-4 py-2 text-white"
         >
           Export Excel
         </button>
 
-        <!-- Edit -->
         <button
           v-if="!isEditing"
           @click="startRestock"
@@ -222,7 +200,6 @@ const saveRestock = () => {
           Restock
         </button>
 
-        <!-- Save -->
         <button
           v-if="isEditing"
           @click="saveRestock"
@@ -231,11 +208,10 @@ const saveRestock = () => {
           Save
         </button>
 
-        <!-- Cancel -->
         <button
           v-if="isEditing"
           @click="cancelRestock"
-          class="rounded bg-red-500 px-4 py-2 text-white"
+          class="rounded bg-red-600 px-4 py-2 text-white"
         >
           Cancel
         </button>
@@ -243,13 +219,17 @@ const saveRestock = () => {
     </div>
 
     <!-- Stats -->
-    <div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3">
+    <div
+      class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-3"
+    >
       <div
         v-for="stat in stats"
         :key="stat.label"
         class="rounded-lg bg-white p-5 shadow"
       >
-        <p class="text-xs font-bold tracking-widest text-gray-400">
+        <p
+          class="text-xs font-bold tracking-widest text-gray-400"
+        >
           {{ stat.label }}
         </p>
 
@@ -257,17 +237,22 @@ const saveRestock = () => {
           {{ stat.value }}
         </h2>
 
-        <p class="mt-2 text-sm" :class="stat.noteClass">
+        <p
+          class="mt-2 text-sm"
+          :class="stat.noteClass"
+        >
           {{ stat.note }}
         </p>
       </div>
     </div>
 
     <!-- Table -->
-    <div class="overflow-x-auto rounded-lg bg-white shadow">
-      <table class="w-full border-collapse">
+    <div
+      class="overflow-x-auto rounded-lg bg-white shadow"
+    >
+      <table class="w-full">
         <thead>
-          <tr class="bg-gray-100">
+          <tr>
             <th :class="tableHeadClass">Item</th>
             <th :class="tableHeadClass">SKU</th>
             <th :class="tableHeadClass">Category</th>
@@ -296,14 +281,15 @@ const saveRestock = () => {
             </td>
 
             <td :class="tableCellClass">
-
               <span v-if="!isEditing">
                 {{ item.stock }}
               </span>
 
               <input
                 v-else
-                v-model.number="tempStocks[item.sku]"
+                v-model.number="
+                  tempStocks[item.sku]
+                "
                 type="number"
                 min="0"
                 class="w-20 rounded border p-1"

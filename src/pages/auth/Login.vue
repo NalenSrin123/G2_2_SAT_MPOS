@@ -80,7 +80,7 @@
                 </label>  
                 <!-- Forgot password-->
                 <router-link
-                  to="/forgot-password"
+                  to="/reset-password"
                   class="text-sm text-blue-700 hover:underline font-medium"
                 >
                   Forgot Password?
@@ -194,33 +194,34 @@
               
             </div>
             <!-- Button sign in -->
-            <button
-              type="submit"
-              class="group relative overflow-hidden flex items-center justify-center gap-2  w-full
-                    bg-blue-800
-                    text-white py-2 sm:py-2 rounded-md
-                    text-base sm:text-md font-semibold tracking-wide"
-            >
-
-              <!-- Glow -->
-              <span
-                class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"
-              ></span>
-
-              <!-- Text -->
-              <span class="relative z-10 flex items-center gap-2">
-                Sign In
-              </span>
-
-              <!-- Arrow -->
-              <span
-                class="relative z-10 text-xl transition-transform duration-300 group-hover:translate-x-1"
-              >
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
-                  <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
-                </svg>
-              </span>
-            </button>
+             <router-link to="/confirm-otp">
+               <button
+                 type="submit"
+                 class="group relative overflow-hidden flex items-center justify-center gap-2  w-full
+                       bg-blue-800
+                       text-white py-2 sm:py-2 rounded-md
+                       text-base sm:text-md font-semibold tracking-wide"
+               >
+   
+                 <!-- Glow -->
+                 <span
+                   class="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition duration-300"
+                 ></span>
+                 <!-- Text -->
+                 <span class="relative z-10 flex items-center gap-2">
+                   Sign In
+                 </span>
+   
+                 <!-- Arrow -->
+                 <span
+                   class="relative z-10 text-xl transition-transform duration-300 group-hover:translate-x-1"
+                 >
+                   <svg xmlns="http://www.w3.org/2000/svg" width="20" height="16" fill="currentColor" class="bi bi-arrow-bar-right" viewBox="0 0 16 16">
+                     <path fill-rule="evenodd" d="M6 8a.5.5 0 0 0 .5.5h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L12.293 7.5H6.5A.5.5 0 0 0 6 8m-2.5 7a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5"/>
+                   </svg>
+                 </span>
+               </button>
+             </router-link>
 
           </form>
 
@@ -267,15 +268,7 @@
         </div>
 
         <!-- Footer from -->
-        <div class="text-center mt-2">
-          <p class="text-gray-600 text-sm sm:text-base">
-            Don't have an account?
-
-            <a href="#" class="text-blue-700 font-semibold hover:underline">
-              Create an account
-            </a>
-          </p>
-
+        <div class="text-center mt-4">
           <div class="md:mt-2 flex  flex-wrap justify-center gap-4 sm:gap-6 text-sm text-gray-400">
             <a href="#" class="hover:text-blue-600">
               Privacy Policy
