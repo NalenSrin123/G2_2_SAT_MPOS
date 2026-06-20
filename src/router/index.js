@@ -43,7 +43,7 @@ import Order_page from '@/pages/dashboard/Order_page.vue'
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
 import Design_Main_menu from '../pages/home/home/Design_Main_menu.vue'
-import Design_confirm_payment from '../pages/home/home/design_confirm_payment.vue'
+import Design_confirm_payment from '../pages/home/home/Design_confirm_payment.vue'
 
 import cart_items_page from '../pages/cart_items_page.vue'
 import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
