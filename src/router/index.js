@@ -74,7 +74,6 @@ const routes = [
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
-
   
 
  
@@ -119,6 +118,7 @@ const routes = [
   }
 
 ]
+
 
 /**
  * Router instance configuration

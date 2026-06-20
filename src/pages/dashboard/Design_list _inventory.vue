@@ -24,8 +24,8 @@ const items = ref([
     unit: 'Units',
     restocked: 'Oct 24, 2023',
     status: 'Low Stock',
-    statusClass: 'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]',
-    icon: 'scanner',
+    statusClass:
+      'border border-red-200 bg-red-50 text-red-600',
   },
   {
     name: 'Nexus Connector Cable 3m',
@@ -35,8 +35,8 @@ const items = ref([
     unit: 'Meters',
     restocked: 'Nov 02, 2023',
     status: 'Optimal',
-    statusClass: 'bg-[#dff8e9] text-[#14994c]',
-    icon: 'cable',
+    statusClass:
+      'bg-green-100 text-green-700',
   },
   {
     name: 'POS Terminal Mount V3',
@@ -46,21 +46,11 @@ const items = ref([
     unit: 'Units',
     restocked: 'Sep 15, 2023',
     status: 'Critical',
-    statusClass: 'border border-[#ffd7d7] bg-[#fff1f1] text-[#d11111]',
-    icon: 'terminal',
-  },
-  {
-    name: 'ARM Processor Core-X',
-    sku: 'NX-CPU-82',
-    category: 'HARDWARE',
-    stock: 128,
-    unit: 'Units',
-    restocked: 'Nov 10, 2023',
-    status: 'Optimal',
-    statusClass: 'bg-[#dff8e9] text-[#14994c]',
-    icon: 'chip',
+    statusClass:
+      'border border-red-200 bg-red-50 text-red-600',
   },
 ])
+
 
 // Dashboard Stats
 const stats = ref([
@@ -296,7 +286,6 @@ const saveRestock = () => {
             </td>
 
             <td :class="tableCellClass">
-
               <span v-if="!isEditing">
                 {{ item.stock }}
               </span>
