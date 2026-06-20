@@ -47,6 +47,8 @@ import Design_confirm_payment from '../pages/home/home/Design_confirm_payment.vu
 
 import cart_items_page from '../pages/cart_items_page.vue'
 import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
+import Home_page from '../pages/customer/Home_page.vue'
+import HistoryPage from '../components/HistoryPage.vue'
 
 /**
  * Route definitions
@@ -57,13 +59,15 @@ const routes = [
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
    */
-  { path: '/', redirect: '/preview' },
+  { path: '/',component:Home_page },
+  { path: '/order-history', component:HistoryPage},
 
   /**
    * Preview page (landing/demo screen)
    * Displays project structure and navigation examples
    */
   { path: '/preview', component: Preview },
+  
 
   /**
    * Main application dashboard

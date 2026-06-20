@@ -6,10 +6,12 @@
       <h1 class="text-3xl font-bold text-emerald-700">
         LuxeDine
       </h1>
-
       <div class="flex gap-4">
         <Search class="w-6 h-6 text-emerald-700" />
         <Bell class="w-6 h-6 text-emerald-700" />
+        <RouterLink to="/order-history" class=" hover:bg-gray-100 rounded-full transition active:scale-95 inline-flex items-center justify-center">
+          <History class="w-6 h-6 text-emerald-700" />
+        </RouterLink>
       </div>
     </header>
 
@@ -174,7 +176,8 @@
 <script setup>
 import {
   Search,
-  Bell
+  Bell,
+  History,
 } from "lucide-vue-next";
 
 const categories = [
