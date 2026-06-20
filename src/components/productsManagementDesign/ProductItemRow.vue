@@ -56,7 +56,9 @@
             @click="$emit('edit', product)"
             class="px-3 py-1.5 rounded-md bg-[#002f87] text-white font-bold text-xs shadow-sm hover:bg-blue-900 transition-colors"
           >
+          <router-link to="/add_new_products">
             Edit
+          </router-link>
           </button>
           <button
             @click="$emit('remove', product)"
@@ -136,7 +138,9 @@
             @click="$emit('edit', product)"
             class="flex-1 py-2 bg-[#002f87] text-white rounded-lg hover:bg-blue-900"
           >
+          <router-link to="/add_new_products">
             Edit
+          </router-link>
           </button>
 
           <button

@@ -1,7 +1,7 @@
 <template>
-  <main class="min-h-screen bg-white text-slate-900">
+  <div class="bg-gray-200 min-h-screen p-0">
     <section
-      class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8"
+      class="w-full flex flex-col gap-6 px-6 py-6"
     >
       <header
         class="flex flex-col gap-5 border-b border-slate-200 pb-5 lg:flex-row lg:items-end lg:justify-between"
@@ -313,7 +313,7 @@
         </aside>
       </form>
     </section>
-  </main>
+  </div>
 </template>
 <script setup>
 const saveDraft = () => {
