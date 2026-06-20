@@ -1,14 +1,14 @@
 <template>
   <main class="min-h-screen bg-[#f7f8fb] px-4 py-5 text-[#22252c] sm:px-7 sm:py-6.5">
     <!-- Main Card -->
-    <div class="bg-white rounded-2xl shadow-sm w-full max-w-[1100px] overflow-hidden relative border border-gray-100">
+    <div class="bg-white rounded-2xl shadow-sm w-full overflow-hidden relative border border-gray-100">
       
       <!-- Top Actions -->
       <div class="p-6 flex items-center justify-between border-b border-gray-100">
         <!-- Tabs -->
         <div class="flex items-center bg-slate-100/80 p-1.5 rounded-xl">
           <button 
-            v-for="tab in tabs" :key="tab" @click="activeTab = tab"
+            v-for="tab in tabs" :key="tab" @click="activeTab = tab; currentPage = 1"
             :class="[
               'px-5 py-2 rounded-lg text-sm font-semibold transition-all',
               activeTab === tab 
@@ -21,11 +21,11 @@
         </div>
         <!-- Buttons -->
         <div class="flex gap-3">
-          <button class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+          <button @click="toggleFilters" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
             Filters
           </button>
-          <button class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
+          <button @click="exportCSV" class="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg text-sm font-semibold text-gray-700 hover:bg-gray-50 transition-colors shadow-sm">
             <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
             Export CSV
           </button>
@@ -46,7 +46,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-100">
-            <tr v-for="order in orders" :key="order.id" class="hover:bg-gray-50/50 transition-colors group">
+            <tr v-for="order in paginatedOrders" :key="order.id" class="hover:bg-gray-50/50 transition-colors group">
               <td class="py-4 px-6 align-top">
                 <div class="text-[#1a4b9c] font-black text-sm tracking-wide mt-1">{{ order.id }}</div>
               </td>
@@ -62,9 +62,8 @@
                   >
                     {{ order.initials }}
                   </div>
-                  <div class="text-gray-700 font-medium text-sm leading-tight max-w-[100px]">
-                    {{ order.customerName.replace(' ', '\n') }}
-                    <span class="whitespace-pre-line">{{ order.customerName }}</span>
+                  <div class="text-gray-700 font-medium text-sm leading-tight max-w-[100px] whitespace-pre-line">
+                    {{ order.customerName }}
                   </div>
                 </div>
               </td>
@@ -108,24 +107,25 @@
       <!-- Pagination -->
       <div class="p-5 flex items-center justify-between border-t border-gray-100 bg-gray-50/50">
         <span class="text-sm text-gray-500 font-medium">
-          Showing 1-10 of 245 orders
+          Showing {{ ((currentPage - 1) * perPage) + 1 }}-{{ Math.min(currentPage * perPage, filteredOrders.length) }} of {{ filteredOrders.length }} orders
         </span>
         <div class="flex items-center gap-2">
-          <button class="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-400 hover:bg-gray-100 transition-colors shadow-sm bg-white">
+          <button @click="currentPage > 1 ? currentPage-- : null" :disabled="currentPage === 1" class="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-600 hover:bg-gray-100 transition-colors shadow-sm bg-white disabled:opacity-50 disabled:cursor-not-allowed">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
           </button>
-          
+
           <template v-for="(page, index) in pages" :key="index">
             <button 
               v-if="page !== '...'"
+              @click="currentPage = page"
               class="w-8 h-8 flex items-center justify-center rounded-md text-sm font-bold transition-colors shadow-sm"
-              :class="page === 1 ? 'bg-[#002f87] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'"
+              :class="currentPage === page ? 'bg-[#002f87] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:bg-gray-50'"
             >
               {{ page }}
             </button>
             <span v-else class="w-8 h-8 flex items-center justify-center text-gray-400 font-bold tracking-widest">...</span>
           </template>
-          <button class="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-400 hover:bg-gray-100 transition-colors shadow-sm bg-white">
+          <button @click="currentPage < totalPages ? currentPage++ : null" :disabled="currentPage === totalPages" class="w-8 h-8 flex items-center justify-center rounded-md border border-gray-200 text-gray-400 hover:bg-gray-100 transition-colors shadow-sm bg-white disabled:opacity-50 disabled:cursor-not-allowed">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
           </button>
         </div>
@@ -139,13 +139,14 @@
   </main>
 </template>
 
-
-
-
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
+
 const tabs = ['All Orders', 'Pending', 'Completed', 'Cancelled']
 const activeTab = ref('All Orders')
+const currentPage = ref(1)
+const perPage = 10
+
 const orders = ref([
   {
     id: '#ORD-9021',
@@ -198,10 +199,79 @@ const orders = ref([
     status: 'PENDING'
   }
 ])
-const pages = [1, 2, 3, '...', 25]
+
+const filteredOrders = computed(() => {
+  if (activeTab.value === 'All Orders') {
+    return orders.value
+  }
+  return orders.value.filter(order => order.status === activeTab.value.toUpperCase())
+})
+
+const totalPages = computed(() => Math.max(1, Math.ceil(filteredOrders.value.length / perPage)))
+
+const paginatedOrders = computed(() => {
+  const start = (currentPage.value - 1) * perPage
+  const end = start + perPage
+  return filteredOrders.value.slice(start, end)
+})
+
+const pages = computed(() => {
+  const total = totalPages.value
+  const current = currentPage.value
+  const result = []
+
+  if (total <= 7) {
+    for (let i = 1; i <= total; i++) result.push(i)
+    return result
+  }
+
+  result.push(1)
+
+  if (current > 3) result.push('...')
+
+  const start = Math.max(2, current - 1)
+  const end = Math.min(total - 1, current + 1)
+
+  for (let i = start; i <= end; i++) result.push(i)
+
+  if (current < total - 2) result.push('...')
+
+  result.push(total)
+
+  return result
+})
+
+const toggleFilters = () => {
+  // Placeholder for filter panel toggle
+}
+
+const exportCSV = () => {
+  const headers = ['Order ID', 'Customer Name', 'Date', 'Time', 'Items', 'Total Price', 'Status']
+  const rows = filteredOrders.value.map(order => [
+    order.id,
+    order.customerName.replace(/\n/g, ' '),
+    order.date,
+    order.time,
+    order.items,
+    parseFloat(order.totalPrice.replace(/[$,]/g, '')),
+    order.status
+  ])
+
+  const BOM = '\uFEFF'
+  const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
+  const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+
+  link.href = url
+  link.download = `orders_${new Date().toISOString().slice(0, 10)}.csv`
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
 </script>
 <style scoped>
-/* Optional styling adjustments */
 .whitespace-pre-line {
   white-space: pre-line;
 }
