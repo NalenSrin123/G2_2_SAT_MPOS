@@ -2,11 +2,11 @@
   <div class="min-h-screen flex items-center justify-center bg-gray-100 p-4">
 
     <!-- Card -->
-    <div class="w-full max-w-sm bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div   class="w-full max-w-sm md:max-w-md lg:max-w-lg bg-white rounded-2xl shadow-lg overflow-hidden">
 
       <!-- Header -->
       <div class="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-        <button class="text-gray-600 hover:text-gray-800 transition-colors">
+        <button  @click="backToPayment" class="text-gray-600 hover:text-gray-800 transition-colors">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
           </svg>
@@ -111,6 +111,13 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import qrImage from '@/assets/Qr_code.jpg'
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const backToPayment = () => {
+  router.push("/payment-method");
+};
 
 const totalAmount = ref('200.60')
 const showTimer = ref(true)
