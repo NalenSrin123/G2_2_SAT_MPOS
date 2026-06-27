@@ -96,20 +96,26 @@
             </div>
           </div>
 
-          <div class="flex flex-col-reverse  gap-3 border-t border-slate-100 p-5 sm:flex-row sm:justify-end">
-            <button
-              type="reset"
-              class="inline-flex h-11  items-center justify-center rounded-lg border border-slate-300 bg-red-500 text-white px-5 text-sm font-semibold text-slate-700 shadow-sm transition hover:bg-red-600 "
-            >
-              Discard
-            </button>
+          <div class="flex flex-col gap-3 border-t border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-end">
+            <p v-if="errorMessage" class="text-sm font-medium text-red-600">{{ errorMessage }}</p>
+            <p v-else-if="successMessage" class="text-sm font-medium text-green-600">{{ successMessage }}</p>
 
-            <button
-              type="submit"
-              class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700"
-            >
-              Add User
-            </button>
+            <div class="flex flex-col-reverse gap-3 sm:flex-row">
+              <button
+                type="reset"
+                class="inline-flex h-11 items-center justify-center rounded-lg border border-slate-300 bg-red-500 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-red-600"
+              >
+                Discard
+              </button>
+
+              <button
+                type="submit"
+                :disabled="loading"
+                class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-blue-400"
+              >
+                {{ loading ? 'Creating...' : 'Add User' }}
+              </button>
+            </div>
           </div>
         </section>
       </form>
@@ -118,8 +124,9 @@
 </template>
 
 <script setup>
-import { reactive } from 'vue'
+import { reactive, ref } from 'vue'
 import BaseInput from '../../components/base/BaseInput.vue'
+import api from '../../services/api'
 
 const form = reactive({
   username: '',
@@ -128,7 +135,39 @@ const form = reactive({
   role: '',
 })
 
-function addUser() {
-  alert(`User created: ${form.username}`)
+const loading = ref(false)
+const errorMessage = ref('')
+const successMessage = ref('')
+
+async function addUser() {
+  if (!form.username || !form.email || !form.password || !form.role) {
+    errorMessage.value = 'Please fill in all fields.'
+    return
+  }
+
+  loading.value = true
+  errorMessage.value = ''
+  successMessage.value = ''
+
+  try {
+    await api.post('/users', {
+      name: form.username,
+      email: form.email,
+      password: form.password,
+      role: form.role,
+    })
+
+    successMessage.value = 'User created successfully.'
+    Object.assign(form, {
+      username: '',
+      email: '',
+      password: '',
+      role: '',
+    })
+  } catch (error) {
+    errorMessage.value = error?.response?.data?.message || 'Failed to create user. Please try again.'
+  } finally {
+    loading.value = false
+  }
 }
 </script>
