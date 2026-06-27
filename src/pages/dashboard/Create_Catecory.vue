@@ -118,7 +118,7 @@
                   <input type="checkbox" checked class="peer sr-only" />
 
                   <span
-                    class="relative h-6 w-11 rounded-full bg-slate-300 transition peer-checked:bg-blue-600 after:absolute after:left-[3px] after:top-[3px] after:h-[18px] after:w-[18px] after:rounded-full after:bg-white after:transition peer-checked:after:translate-x-5"
+                    class="relative h-6 w-11 rounded-full bg-slate-300 transition peer-checked:bg-blue-600 after:absolute after:left-0.75 after:top-0.75 after:h-4.5 after:w-4.5 after:rounded-full after:bg-white after:transition peer-checked:after:translate-x-5"
                   ></span>
                 </label>
               </div>
