@@ -15,6 +15,7 @@ const navItems = [
   { label: 'Inventory', to: '/list_inventory', icon: Archive },
   { label: 'Orders', to: '/order', icon: ShoppingCart },
   { label: 'Products', to: '/products', icon: Shapes },
+  { label: 'Categories', to: '/categories', icon: Shapes },
   { label: 'Customers', to: '/customers', icon: Users },
   { label: 'Reports', to: '/reports', icon: SquareKanban },
 ]

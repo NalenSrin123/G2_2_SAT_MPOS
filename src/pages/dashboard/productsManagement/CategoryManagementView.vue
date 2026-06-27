@@ -4,6 +4,12 @@
     <!-- Header -->
     <div class="flex justify-between items-center mb-6">
       <h1 class="text-2xl font-bold">Category Management</h1>
+      <RouterLink
+        to="/create_category"
+        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+      >
+        Create Category
+      </RouterLink>
     </div>
 
     <!-- Category Table -->

@@ -41,7 +41,7 @@ import CategoryManagementView from '../pages/dashboard/productsManagement/Catego
 import Order_page from '@/pages/dashboard/Order_page.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
-import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import Create_Category from '../pages/dashboard/Create_Catecory.vue'
 import Design_Main_menu from '../pages/home/home/Design_Main_menu.vue'
 import Design_confirm_payment from '../pages/home/home/Design_confirm_payment.vue'
 
@@ -125,9 +125,9 @@ const routes = [
   },
   //Create_Catecory
   {
-    path: "/create_catecory",
+    path: "/create_category",
     name: "Design_Page_Create_Catecory",
-    component: Create_Catecory,
+    component: Create_Category,
   },
   {
     path: "/main-menu",
