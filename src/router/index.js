@@ -48,6 +48,8 @@ import Design_confirm_payment from '../pages/home/home/Design_confirm_payment.vu
 import cart_items_page from '../pages/cart_items_page.vue'
 import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
 
+import Add_User from '../pages/dashboard/Add_User.vue'
+
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -80,9 +82,9 @@ const routes = [
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   { path: '/categories', component: CategoryManagementView, meta: { layout: 'dashboard' } },
   { path: '/cart', component: cart_items_page, meta: { layout: 'dashboard' } },
+  { path: '/add-user', name: 'AddUser', component: Add_User , meta: { layout: 'dashboard'}},
   
 
- 
 
   /**
    * Authentication routes
