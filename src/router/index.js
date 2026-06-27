@@ -47,6 +47,7 @@ import Design_confirm_payment from '../pages/home/home/Design_confirm_payment.vu
 
 import cart_items_page from '../pages/cart_items_page.vue'
 import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
+import Home_page from '../pages/customer/Home_page.vue'
 
 import Add_User from '../pages/dashboard/Add_User.vue'
 
@@ -135,7 +136,11 @@ const routes = [
   path: "/confirm_payment",
   name: "Design_confirm_payment",
   component: Design_confirm_payment,
-}
+},
+{
+  path: '/home-page',
+  component: Home_page, 
+},
 
 ]
 

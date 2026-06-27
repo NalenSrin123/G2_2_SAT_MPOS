@@ -1,6 +1,8 @@
 <script setup>
+
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import Home_page from '../../customer/Home_page.vue';
 
 const subtotal = ref(0);
 const orderCount = ref(0);
@@ -131,61 +133,30 @@ const addToCart = (item) => {
       </div>
     </section>
 
-    <!-- Floating Cart -->
-    <div
-      class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[95%] max-w-6xl bg-emerald-800/95 backdrop-blur-lg rounded-3xl shadow-2xl border border-emerald-700 px-6 py-4 z-50"
-    >
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
-        <!-- Left -->
-        <div class="flex items-center gap-4">
-          <button
-            class="relative bg-emerald-500 hover:bg-emerald-400 text-emerald-900 px-6 py-3 rounded-full font-semibold flex items-center gap-2 transition"
-          >
-            <span
-              v-if="orderCount"
-              class="absolute -top-2 -right-2 w-6 h-6 bg-red-500 text-white text-xs rounded-full flex items-center justify-center font-bold"
-            >
-              {{ orderCount }}
-            </span>
-
-            <i class="fa-solid fa-cart-shopping"></i>
-            <span><router-link to="/">View Order</router-link></span>
-          </button>
-
-          <button
-            class="hidden sm:flex items-center gap-1 text-white font-medium hover: hover:scale-105 transition"
-          >
-            <i class="fa-solid fa-credit-card"></i>
-            Payment
-          </button>
-
-          <button
-            class="hidden sm:flex items-center gap-1 text-white font-medium hover: hover:scale-105 transition"
-          >
-            <i class="fa-solid fa-truck-fast"></i>
-            Shipping
-          </button>
-        </div>
-
-        <!-- Right -->
-        <div class="text-center md:text-right">
-          <p class="uppercase tracking-widest text-xs text-emerald-200">
-            Subtotal
-          </p>
-
-          <h2 class="text-white text-3xl md:text-4xl font-extrabold">
-            ${{ subtotal.toFixed(2) }}
-          </h2>
-
-          <p v-if="orderCount === 0" class="text-emerald-200 text-xs mt-1">
-            No items added yet
-          </p>
-
-          <p v-else class="text-emerald-200 text-xs mt-1">
-            {{ orderCount }} item(s) selected
-          </p>
-        </div>
+   <!-- Floating Cart -->
+<div
+  class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-emerald-700 rounded-2xl shadow-xl px-4 py-3 z-50"
+>
+  <router-link
+    to="/"
+    class="flex items-center justify-between text-white"
+  >
+    <div class="flex items-center gap-3">
+      <div
+        class="w-7 h-7 rounded-full bg-white text-emerald-700 flex items-center justify-center text-sm font-bold"
+      >
+        {{ orderCount }}
       </div>
+
+      <span class="font-semibold">
+        View Order
+      </span>
     </div>
+
+    <span class="text-xl font-bold">
+      ${{ subtotal.toFixed(2) }}
+    </span>
+  </router-link>
+</div>
   </main>
 </template>
