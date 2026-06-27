@@ -5,10 +5,12 @@
       <h1 class="text-2xl md:text-3xl font-bold text-emerald-700">
         LuxeDine
       </h1>
-
       <div class="flex gap-4">
        
         <Bell class="w-6 h-6 text-emerald-700" />
+        <RouterLink to="/order-history" class=" hover:bg-gray-100 rounded-full transition active:scale-95 inline-flex items-center justify-center">
+          <History class="w-6 h-6 text-emerald-700" />
+        </RouterLink>
       </div>
     </header>
 
@@ -139,9 +141,13 @@
 </template>
 
 <script setup>
-import { Search, Bell } from "lucide-vue-next";
 import Design_Main_menu from "../home/home/Design_Main_menu.vue";
 import { ref } from 'vue';
+import {
+  Search,
+  Bell,
+  History,
+} from "lucide-vue-next";
 
 const categories = [
   "All", "Starters", "Main Course", "Drinks", "Desserts",
