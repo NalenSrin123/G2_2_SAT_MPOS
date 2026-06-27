@@ -1,9 +1,9 @@
 <script setup>
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { useCartStore } from '@/stores/cart.store';
 
-const subtotal = ref(0);
-const orderCount = ref(0);
+const { subtotal, orderCount, addToCart } = useCartStore();
 
 const products = ref([
   {
@@ -66,10 +66,7 @@ const products = ref([
   },
 ]);
 
-const addToCart = (item) => {
-  subtotal.value += item.price;
-  orderCount.value++;
-};
+
 </script>
 
 <template>
@@ -149,7 +146,7 @@ const addToCart = (item) => {
             </span>
 
             <i class="fa-solid fa-cart-shopping"></i>
-            <span><router-link to="/">View Order</router-link></span>
+            <span><router-link to="/cart">View Order</router-link></span>
           </button>
 
           <button
