@@ -7,29 +7,9 @@ const router = useRouter();
 const goToPaymentMethod = () => {
   router.push('/payment-method');
 };
+import { useCartStore } from '@/stores/cart.store';
 
-const items = ref([
-  {
-    id: 1,
-    name: 'Wagyu Ribeye Steak',
-    subtitle: 'Medium Rare • Truffle Butter',
-    price: 128.00,
-    quantity: 1,
-    image: '/images/wagyu_steak.png'
-  },
-  {
-    id: 2,
-    name: 'Truffle Fettuccine',
-    subtitle: 'Fresh Pasta • Parmesan',
-    price: 42.00,
-    quantity: 1,
-    image: '/images/truffle_pasta.png'
-  }
-]);
-
-const subtotal = computed(() => {
-  return items.value.reduce((total, item) => total + (item.price * item.quantity), 0);
-});
+const { items, subtotal, increment, decrement, removeItem } = useCartStore();
 
 const serviceFee = computed(() => {
   return subtotal.value * 0.10;
@@ -42,27 +22,13 @@ const tax = computed(() => {
 const total = computed(() => {
   return subtotal.value + serviceFee.value + tax.value;
 });
-
-const increment = (item) => {
-  item.quantity++;
-};
-
-const decrement = (item) => {
-  if (item.quantity > 1) {
-    item.quantity--;
-  }
-};
-
-const removeItem = (id) => {
-  items.value = items.value.filter(item => item.id !== id);
-};
 </script>
 
 <template>
   <div class="cart-container">
     <!-- Header -->
     <header class="header">
-      <button class="icon-btn">
+      <button class="icon-btn" @click="$router.back()">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0D5B41" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
       </button>
       <h1 class="brand-title">LuxeDine</h1>
