@@ -138,7 +138,7 @@ const addToCart = (item) => {
   class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-emerald-700 rounded-2xl shadow-xl px-4 py-3 z-50"
 >
   <router-link
-    to="/"
+    to=""
     class="flex items-center justify-between text-white"
   >
     <div class="flex items-center gap-3">

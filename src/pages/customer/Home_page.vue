@@ -32,7 +32,7 @@
         <button
           v-for="category in categories"
           :key="category"
-          class="px-6 py-3 rounded-full whitespace-nowrap transition text-sm font-medium flex-shrink-0 snap-start"
+          class="px-6 py-3 rounded-full whitespace-nowrap transition text-sm font-medium shrink-0 snap-start"
           :class="
             category === activeCategory
               ? 'bg-emerald-700 text-white shadow-md'
@@ -52,13 +52,13 @@
       </h2>
 
       <!-- Featured Card -->
-      <div class="relative overflow-hidden rounded-3xl h-[260px] sm:h-[280px] lg:h-[320px]">
+      <div class="relative overflow-hidden rounded-3xl h-65 sm:h-70 lg:h-80">
         <img
           src="https://images.unsplash.com/photo-1544025162-d76694265947"
           alt="Wagyu Ribeye Steak"
           class="w-full h-full object-cover"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+        <div class="absolute inset-0 bg-linear-to-t from-black/70 to-transparent"></div>
 
         <div class="absolute bottom-6 left-6 right-6">
           <span class="bg-emerald-400 text-black px-4 py-1 rounded-full text-sm font-medium">
@@ -76,12 +76,12 @@
       <!-- Grid Items -->
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
         <!-- Card 1 -->
-        <div class="relative overflow-hidden rounded-3xl h-[200px] sm:h-[220px]">
+        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
           <img
             src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
           <div class="absolute bottom-4 left-4">
             <h3 class="text-white text-lg font-semibold">Truffle Fettuccine</h3>
             <p class="text-white/80">$32.00</p>
@@ -89,12 +89,12 @@
         </div>
 
         <!-- Card 2 -->
-        <div class="relative overflow-hidden rounded-3xl h-[200px] sm:h-[220px]">
+        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
           <img
             src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
           <div class="absolute bottom-4 left-4">
             <h3 class="text-white text-lg font-semibold">Midnight Orchid</h3>
             <p class="text-white/80">$18.00</p>
@@ -102,12 +102,12 @@
         </div>
 
         <!-- Card 3 -->
-        <div class="relative overflow-hidden rounded-3xl h-[200px] sm:h-[220px]">
+        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
           <img
             src="https://italianstreetkitchen.com/au/wp-content/uploads/2021/10/Gamberi-Prawn-Pizza.jpg"
             class="w-full h-full object-cover"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
           <div class="absolute bottom-4 left-4">
             <h3 class="text-white text-lg font-semibold">Italian Pizza</h3>
             <p class="text-white/80">$24.00</p>
@@ -115,14 +115,14 @@
         </div>
 
         <!-- Card 4 -->
-        <div class="relative overflow-hidden rounded-3xl h-[200px] sm:h-[220px] 
+        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55 
              md:hidden lg:block">   <!-- Add this -->
           <img
             src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
             class="w-full h-full object-cover"
           />
           
-          <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
           <div class="absolute bottom-4 left-4">
             <h3 class="text-white text-lg font-semibold">Berry Cheesecake</h3>
             <p class="text-white/80">$16.00</p>
