@@ -185,7 +185,7 @@
             @click="placeOrder"
             class="w-full mt-5 bg-blue-700 hover:bg-blue-800 text-white py-3 sm:py-4 rounded-lg font-semibold transition"
           >
-            Place Order
+            Confirm Payment
           </button>
 
           <button
@@ -206,12 +206,7 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
-
 const router = useRouter();
-
-const backToCart = () => {
-  router.push('/cart');
-};
 
 const selectedMethod = ref(1);
 
@@ -268,6 +263,9 @@ const placeOrder = () => {
     console.log("Card Info:", card.value);
   }
 
-  alert("Order placed successfully!");
+  router.push({
+    name: "Design_confirm_payment",
+  });
 };
+
 </script>
