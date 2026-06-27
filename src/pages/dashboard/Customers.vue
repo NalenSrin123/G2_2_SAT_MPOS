@@ -21,17 +21,31 @@
               <th class="px-5 py-3">Email</th>
               <th class="px-5 py-3">Role</th>
               <th class="px-5 py-3">Password</th>
-              <th class="px-5 py-3">Status</th>
+              <th class="px-5 py-3">Verification</th>
             </tr>
           </thead>
           <tbody>
-            <tr v-for="user in users" :key="user.email" class="border-b border-slate-100 last:border-0">
-              <td class="px-5 py-4 font-bold text-slate-900">{{ user.username }}</td>
+            <tr v-if="loading">
+              <td colspan="5" class="px-5 py-4 text-center">
+                Loading...
+              </td>
+            </tr>
+
+            <tr v-else-if="error">
+              <td colspan="5" class="px-5 py-4 text-center text-red-600">
+                {{ error }}
+              </td>
+            </tr>
+            
+            <tr v-else v-for="user in users" :key="user.id" class="border-b border-slate-100 last:border-0">
+              <td class="px-5 py-4 font-bold text-slate-900">{{ user.name }}</td>
               <td class="px-5 py-4 text-slate-600">{{ user.email }}</td>
               <td class="px-5 py-4 text-slate-600">{{ user.role }}</td>
-              <td class="px-5 py-4 font-semibold text-slate-900">{{ user.password }}</td>
+              <td class="px-5 py-4 font-semibold text-slate-900">********</td>
               <td class="px-5 py-4">
-                <span class="rounded-full bg-emerald-100 px-3 py-1 text-xs font-bold text-emerald-700">{{ user.status }}</span>
+                <span class="rounded-full px-3 py-1 text-xs font-bold" :class="user.is_verified ?'bg-emerald-100 text-emerald-700':'bg-red-100 text-red-700'">
+                  {{ user.is_verified ? "Verified" : "Not Verified" }}
+                </span>
               </td>
             </tr>
           </tbody>
@@ -42,9 +56,39 @@
 </template>
 
 <script setup>
-const users = [
-  { username: 'eleanor_j', email: 'eleanor@example.com', role: 'Admin', password: '••••••••', status: 'Active' },
-  { username: 'marcus_b', email: 'marcus@example.com', role: 'Manager', password: '••••••••', status: 'Active' },
-  { username: 'kelly_w', email: 'kelly@example.com', role: 'User', password: '••••••••', status: 'Active' },
-]
+import { ref, onMounted } from 'vue'
+import axios from 'axios'
+
+const users = ref([])
+const loading = ref(false)
+const error = ref("")
+
+const fetchUsers = async () => {
+  loading.value = true
+  error.value = ""
+
+  try {
+    const response = await axios.get("https://g2-2-sat-pos-back.onrender.com/api/users")
+
+    console.log("API Response:", response.data)
+
+    users.value = response.data
+  }catch(err){
+    console.error(err)
+
+    if(err.response) {
+      console.log("Status:", err.response.status)
+      console.log("Data:", err.response.data)
+
+      error.value = err.response.data.message || "Server Error"
+    }else {
+      error.value = err.message
+    }
+  }finally{
+    loading.value=false
+  }
+}
+  onMounted(() => {
+    fetchUsers()
+  })
 </script>
