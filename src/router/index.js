@@ -52,13 +52,15 @@ const routes = [
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
    */
-  { path: '/', redirect: '/preview' },
+  { path: '/',component:Home_page },
+  { path: '/order-history', component:HistoryPage},
 
   /**
    * Preview page (landing/demo screen)
    * Displays project structure and navigation examples
    */
   { path: '/preview', component: Preview },
+  
 
   /**
    * Main application dashboard
@@ -119,6 +121,7 @@ const routes = [
   }
 
 ]
+
 
 /**
  * Router instance configuration

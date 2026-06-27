@@ -120,7 +120,7 @@
 
       </div>
 
-      <div class="h-[400px]">
+      <div class="h-100">
         <Bar
           :data="chartData"
           :options="chartOptions"
@@ -132,12 +132,6 @@
 </template>
 
 <script setup>
-import {
-  Wallet,
-  ShoppingBag,
-  CreditCard,
-  User
-} from "lucide-vue-next";
 
 import {
   Chart as ChartJS,

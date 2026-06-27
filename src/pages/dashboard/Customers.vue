@@ -14,7 +14,7 @@
         </button>
       </div>
       <div class="overflow-x-auto">
-        <table class="w-full min-w-[680px] text-left text-sm">
+        <table class="w-full min-w-170 text-left text-sm">
           <thead class="text-xs uppercase tracking-[1px] text-slate-500">
             <tr class="border-b border-slate-100">
               <th class="px-5 py-3">Username</th>
