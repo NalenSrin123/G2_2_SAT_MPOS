@@ -153,6 +153,10 @@ const createCategory = async () => {
         name: name.value,
       },
     );
+    if (!name.value.trim()) {
+      alert('Category name is required');
+      return;
+    }
 
     console.log(response.data);
 
