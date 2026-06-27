@@ -249,7 +249,7 @@
                   :aria-label="`Product image slot ${i}`"
                 >
                   <span class="h-5 w-6 rounded">
-                    <div class="mt-0 flex justify-center mt-0.5">
+                    <div class="flex justify-center mt-0.5">
                       <i
                         class="fa-regular fa-clone"
                         style="color: royalblue"
