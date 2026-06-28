@@ -115,7 +115,7 @@ const routes = [
   },
   //Create_Catecory
   {
-    path: "/create_catecory",
+    path: "/create_category",
     name: "Design_Page_Create_Catecory",
     component: Create_Catecory,
   }
