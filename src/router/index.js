@@ -49,6 +49,7 @@ import cart_items_page from '../pages/cart_items_page.vue'
 import PaymentMethods from '../pages/home/home/PaymentMethods.vue'
 import Home_page from '../pages/customer/Home_page.vue'
 import HistoryPage from '../components/HistoryPage.vue'
+import CreateUserForm from '../components/CreateUserForm.vue'
 
 /**
  * Route definitions
@@ -61,6 +62,7 @@ const routes = [
    */
   { path: '/',component:Home_page },
   { path: '/order-history', component:HistoryPage},
+  { path: '/add-user', component: CreateUserForm},
 
   /**
    * Preview page (landing/demo screen)
