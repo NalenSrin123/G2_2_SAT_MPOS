@@ -1,74 +1,29 @@
 <script setup>
-
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { RouterLink } from 'vue-router';
 import Home_page from '../../customer/Home_page.vue';
 import { useCartStore } from '@/stores/cart.store';
+import api from '@/services/api';
 
 const { subtotal, orderCount, addToCart } = useCartStore();
 
-const products = ref([
-  {
-    id: 1,
-    name: 'Seared Atlantic Salmon',
-    description:
-      'Crispy skin salmon, citrus quinoa, asparagus, and saffron cream sauce.',
-    price: 28,
-    image: 'https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=300',
-  },
-  {
-    id: 2,
-    name: 'Garden Zenith Bowl',
-    description:
-      'Avocado, heirloom tomatoes, roasted seeds, herb-tahini dressing.',
-    price: 22,
-    image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=300',
-  },
-  {
-    id: 3,
-    name: 'The Luxe Burger',
-    description: 'Wagyu beef, cheddar, truffle aioli, and crispy fries.',
-    price: 35,
-    image: 'https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=300',
-  },
-  {
-    id: 4,
-    name: 'Emerald Signature Salad',
-    description: 'Roasted chickpeas, kale, feta, and pomegranate seeds.',
-    price: 19,
-    image: 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=300',
-  },
-  {
-    id: 5,
-    name: 'Berry Velveteen',
-    description: 'New York cheesecake topped with fresh berry compote.',
-    price: 14,
-    image: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?w=300',
-  },
-  {
-    id: 6,
-    name: 'Nitro Cold Brew',
-    description: 'Smooth cold brew charged with nitrogen for a creamy finish.',
-    price: 6.5,
-    image: 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300',
-  },
-  {
-    id: 7,
-    name: 'Iced Matcha Latte',
-    description: 'Premium matcha blended with creamy milk and ice.',
-    price: 7.5,
-    image: 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?w=300',
-  },
-  {
-    id: 8,
-    name: 'Chicken Alfredo',
-    description: 'Creamy parmesan sauce tossed with grilled chicken.',
-    price: 24,
-    image: 'https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?w=300',
-  },
-]);
+const products = ref([]);
+const isLoading = ref(true);
 
+const fetchProducts = async () => {
+  try {
+    const response = await api.get('/products');
+    products.value = response.data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+  } finally {
+    isLoading.value = false;
+  }
+};
 
+onMounted(() => {
+  fetchProducts();
+});
 </script>
 
 <template>
