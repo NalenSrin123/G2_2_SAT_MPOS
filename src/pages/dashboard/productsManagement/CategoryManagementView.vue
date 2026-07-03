@@ -1,19 +1,66 @@
+<script setup>
+import { ref, onMounted } from "vue";
+import api from "@/services/api";
+
+
+const categories = ref([]);
+const loading = ref(false);
+const error = ref("");
+
+const fetchCategories = async () => {
+  loading.value = true;
+  error.value = "";
+
+  try {
+    const response = await api.get("/categories");
+
+    console.log(response.data);
+
+    categories.value = response.data;
+  } catch (err) {
+    console.error(err);
+    error.value = "Failed to load categories.";
+  } finally {
+    loading.value = false;
+  }
+};
+
+onMounted(() => {
+  fetchCategories();
+});
+</script>
 
 <template>
-  <div class="bg-gray-200 p-6 rounded-lg h-full">
-    <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
-      <h1 class="text-2xl font-bold">Category Management</h1>
-      <RouterLink
-        to="/create_category"
-        class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
-      >
-        Create Category
-      </RouterLink>
+  <div class="p-6">
+
+    <!-- Title -->
+    <div class="mb-6">
+      <h1 class="text-3xl font-bold">Categories</h1>
+      <p class="text-gray-500">
+        List of all categories from API
+      </p>
     </div>
 
-    <!-- Category Table -->
-    <div class="bg-white rounded-xl border border-gray-300 overflow-hidden">
+    <!-- Loading -->
+    <div
+      v-if="loading"
+      class="text-center py-10 text-blue-600 font-semibold"
+    >
+      Loading...
+    </div>
+
+    <!-- Error -->
+    <div
+      v-if="error"
+      class="text-center py-10 text-red-600"
+    >
+      {{ error }}
+    </div>
+    <!-- Table -->
+    <div
+      v-if="!loading"
+      class="bg-white rounded-xl border border-gray-300 overflow-hidden"
+    >
       <table class="w-full">
         <thead class="bg-gray-100 border-b">
           <tr>
@@ -24,8 +71,8 @@
             <th class="p-4 text-center font-semibold">Actions</th>
           </tr>
         </thead>
-
         <tbody>
+      
           <tr
             v-for="category in categories"
             :key="category.id"
@@ -48,94 +95,51 @@
                 </p>
               </div>
             </td>
-
             <!-- Products -->
             <td class="p-4">
               <span
                 class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
               >
-                {{ category.totalProducts }}
+                {{ category.totalProducts ?? 0 }}
               </span>
             </td>
 
             <!-- Status -->
             <td class="p-4">
               <span
-                :class="
-                  category.status === 'Active'
-                    ? 'bg-green-100 text-green-700'
-                    : 'bg-red-100 text-red-700'
-                "
-                class="px-3 py-1 rounded-full text-sm font-medium"
+                class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-sm"
               >
-                {{ category.status }}
+                {{ category.status ?? "Active" }}
               </span>
             </td>
-
             <!-- Actions -->
             <td class="p-4">
               <div class="flex justify-center gap-2">
                 <button
-                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg"
                 >
                   Edit
                 </button>
-
                 <button
-                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm"
+                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg"
                 >
                   Delete
                 </button>
               </div>
             </td>
           </tr>
-
-          <!-- Empty State -->
+          <!-- Empty -->
           <tr v-if="categories.length === 0">
-            <td colspan="5" class="p-6 text-center text-gray-500">
+            <td
+              colspan="5"
+              class="text-center py-6 text-gray-500"
+            >
               No categories found.
             </td>
           </tr>
         </tbody>
       </table>
     </div>
+
   </div>
 </template>
-
-<script setup>
-import { ref } from "vue";
-
-const categories = ref([
-  {
-    id: 1,
-    name: "Beverages",
-    totalProducts: 2,
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Snacks",
-    totalProducts: 2,
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Food",
-    totalProducts: 1,
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Dairy",
-    totalProducts: 1,
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "Bakery",
-    totalProducts: 1,
-    status: "Inactive",
-  },
-]);
-</script>
-```
