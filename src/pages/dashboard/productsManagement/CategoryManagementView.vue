@@ -1,4 +1,3 @@
-
 <template>
   <div class="bg-gray-200 p-6 rounded-lg h-full">
     <!-- Header -->
@@ -12,8 +11,17 @@
       </RouterLink>
     </div>
 
+    <div v-if="loading" class="text-center py-4">Loading categories...</div>
+
+    <div v-else-if="error" class="text-center text-red-500 py-4">
+      {{ error }}
+    </div>
     <!-- Category Table -->
-    <div class="bg-white rounded-xl border border-gray-300 overflow-hidden">
+    <div
+      v-else
+      class="bg-white rounded-xl border border-gray-300 overflow-hidden"
+    >
+      <!-- table -->
       <table class="w-full">
         <thead class="bg-gray-100 border-b">
           <tr>
@@ -76,6 +84,12 @@
             <td class="p-4">
               <div class="flex justify-center gap-2">
                 <button
+                  @click="
+                    updateCategory(category.id, {
+                      name: category.name,
+                      status: category.status,
+                    })
+                  "
                   class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
                 >
                   Edit
@@ -103,39 +117,48 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import api from "@/services/api";
 
-const categories = ref([
-  {
-    id: 1,
-    name: "Beverages",
-    totalProducts: 2,
-    status: "Active",
-  },
-  {
-    id: 2,
-    name: "Snacks",
-    totalProducts: 2,
-    status: "Active",
-  },
-  {
-    id: 3,
-    name: "Food",
-    totalProducts: 1,
-    status: "Active",
-  },
-  {
-    id: 4,
-    name: "Dairy",
-    totalProducts: 1,
-    status: "Active",
-  },
-  {
-    id: 5,
-    name: "Bakery",
-    totalProducts: 1,
-    status: "Inactive",
-  },
-]);
+const categories = ref([]);
+const loading = ref(false);
+const error = ref("");
+
+const fetchCategories = async () => {
+  loading.value = true;
+
+  try {
+    const { data } = await api.get("/categories");
+    categories.value = data;
+  } catch (err) {
+    error.value = "Failed to load categories.";
+    console.error(err);
+  } finally {
+    loading.value = false;
+  }
+};
+
+const updateCategory = async (id, categoryData) => {
+  try {
+    console.log("Updating:", id, categoryData);
+
+    const response = await api.put(`/categories/${id}`, categoryData);
+
+    console.log("Status:", response.status);
+    console.log("Response:", response.data);
+
+    await fetchCategories();
+  } catch (error) {
+    console.error("Update failed:", error);
+
+    if (error.response) {
+      console.log("Status:", error.response.status);
+      console.log("Response:", error.response.data);
+    }
+  }
+};
+
+onMounted(fetchCategories);
+
+
 </script>
-```
