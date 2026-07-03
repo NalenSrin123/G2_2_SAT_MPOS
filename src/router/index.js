@@ -42,6 +42,8 @@ import Order_page from '@/pages/dashboard/Order_page.vue'
 
 import Sidebar from '@/components/Sidebar.vue'
 import Create_Catecory from '../pages/dashboard/Create_Catecory.vue'
+import Home_page from '@/pages/customer/Home_page.vue'
+import HistoryPage from '@/components/HistoryPage.vue'
 
 /**
  * Route definitions
