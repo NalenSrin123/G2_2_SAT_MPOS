@@ -1,44 +1,12 @@
-<script setup>
-import { ref, onMounted } from "vue";
-import api from "@/services/api";
-
-
-const categories = ref([]);
-const loading = ref(false);
-const error = ref("");
-
-const fetchCategories = async () => {
-  loading.value = true;
-  error.value = "";
-
-  try {
-    const response = await api.get("/categories");
-
-    console.log(response.data);
-
-    categories.value = response.data;
-  } catch (err) {
-    console.error(err);
-    error.value = "Failed to load categories.";
-  } finally {
-    loading.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchCategories();
-});
-</script>
-
 <template>
   <div class="p-6">
 
     <!-- Title -->
     <div class="mb-6">
       <h1 class="text-3xl font-bold">Categories</h1>
-      <p class="text-gray-500">
-        List of all categories from API
-      </p>
+      <router-link to="/create_category" class="text-blue-500 hover:text-blue-700">
+        Add category
+      </router-link>
     </div>
 
     <!-- Loading -->

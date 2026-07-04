@@ -153,16 +153,8 @@ const createCategory = async () => {
         name: name.value,
       },
     );
-    if (!name.value.trim()) {
-      alert('Category name is required');
-      return;
-    }
 
-    console.log(response.data);
-
-    alert('Category created successfully!');
-
-    router.push('/create_category');
+    router.push('/categories');
   } catch (error) {
     console.error(error.response?.data || error);
     alert('Failed to create category');
