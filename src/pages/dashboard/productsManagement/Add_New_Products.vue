@@ -32,14 +32,15 @@
               >
               Save as Draft
             </button>
-          
-            <button
-              type="submit"
-              form="create-product-form"
-              class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
-            >
-              Create Product
-            </button>
+            <router-link to="/products">
+              <button
+                type="submit"
+                form="create-product-form"
+                class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm transition hover:bg-blue-700 focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-200"
+              >
+                Create Product
+              </button>
+            </router-link>
         </div>
       </header>
 
@@ -213,7 +214,6 @@ const getCategories = async () => {
 
 const createProduct = async () => {
     try {
-        const image = ref(null);
         const formData = new FormData();
 
         formData.append("name", product.value.name);
@@ -226,14 +226,19 @@ const createProduct = async () => {
         }
 
         const response = await api.post("/products", formData);
+        console.log(response.data);
 
         alert("Product created successfully.");
         router.push("/products");
 
     } catch (error) {
-        console.log(error.response?.data);
+      console.log(error.response);
+      console.log(error.response?.status);
+      console.log(error.response?.data);
     }
 };
+const image = ref(null);
+
 const handleImageUpload = (event) => {
     image.value = event.target.files[0];
 };
