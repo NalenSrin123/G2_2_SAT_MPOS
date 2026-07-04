@@ -63,7 +63,7 @@
                     {{ order.initials }}
                   </div>
                   <div class="text-gray-700 font-medium text-sm leading-tight max-w-25 whitespace-pre-line">
-                    {{ order.customerName }}
+                    {{ order.customer_name || order.customerName }}
                   </div>
                 </div>
               </td>
@@ -77,7 +77,7 @@
                 <div class="text-sm font-medium mt-1">{{ order.items }}</div>
               </td>
               <td class="py-4 px-6 align-top text-center">
-                <div class="text-gray-900 font-black text-sm mt-1">{{ order.totalPrice }}</div>
+                <div class="text-gray-900 font-black text-sm mt-1">{{ order.total_price || order.total || order.totalPrice }}</div>
               </td>
               <td class="py-4 px-6 align-top text-center">
                 <div class="mt-1">
@@ -140,65 +140,16 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
+import api from '../../services/api'
 
 const tabs = ['All Orders', 'Pending', 'Completed', 'Cancelled']
 const activeTab = ref('All Orders')
 const currentPage = ref(1)
 const perPage = 10
 
-const orders = ref([
-  {
-    id: '#ORD-9021',
-    customerName: 'Eleanor\nJohnson',
-    initials: 'EJ',
-    date: 'Oct 24, 2023',
-    time: '10:30 AM',
-    items: '3 Items',
-    totalPrice: '$156.40',
-    status: 'COMPLETED'
-  },
-  {
-    id: '#ORD-9022',
-    customerName: 'Marcus\nBennett',
-    initials: 'MB',
-    date: 'Oct 24, 2023',
-    time: '11:15 AM',
-    items: '1 Item',
-    totalPrice: '$42.00',
-    status: 'PENDING'
-  },
-  {
-    id: '#ORD-9023',
-    customerName: 'Sarah\nConnor',
-    initials: 'SC',
-    date: 'Oct 24, 2023',
-    time: '01:45 PM',
-    items: '5 Items',
-    totalPrice: '$294.10',
-    status: 'CANCELLED'
-  },
-  {
-    id: '#ORD-9024',
-    customerName: 'David\nRivera',
-    initials: 'DR',
-    date: 'Oct 24, 2023',
-    time: '02:10 PM',
-    items: '2 Items',
-    totalPrice: '$89.99',
-    status: 'COMPLETED'
-  },
-  {
-    id: '#ORD-9025',
-    customerName: 'Kelly\nWilliams',
-    initials: 'KW',
-    date: 'Oct 24, 2023',
-    time: '03:00 PM',
-    items: '4 Items',
-    totalPrice: '$210.50',
-    status: 'PENDING'
-  }
-])
+const orders = ref([])
 
 const filteredOrders = computed(() => {
   if (activeTab.value === 'All Orders') {
@@ -246,17 +197,22 @@ const toggleFilters = () => {
 }
 
 const exportCSV = () => {
-  const headers = ['Order ID', 'Customer Name', 'Date', 'Time', 'Items', 'Total Price', 'Status']
-  const rows = filteredOrders.value.map(order => [
-    order.id,
-    order.customerName.replace(/\n/g, ' '),
-    order.date,
-    order.time,
-    order.items,
-    parseFloat(order.totalPrice.replace(/[$,]/g, '')),
-    order.status
-  ])
-
+const headers = ['Order ID', 'Customer Name', 'Date', 'Time', 'Items', 'Total Price', 'Status']
+  
+  const rows = filteredOrders.value.map(order => {
+    const name = order.customer_name || order.customerName || 'N/A'
+    const total = order.total_price || order.total || order.totalPrice || 0
+    
+    return [
+      order.id,
+      String(name).replace(/\n/g, ' '),
+      order.date || '',
+      order.time || '',
+      order.items || 0,
+      typeof total === 'string' ? parseFloat(total.replace(/[$,]/g, '')) : total, 
+      order.status
+    ]
+  })
   const BOM = '\uFEFF'
   const csvContent = [headers.join(','), ...rows.map(r => r.join(','))].join('\n')
   const blob = new Blob([BOM + csvContent], { type: 'text/csv;charset=utf-8;' })
@@ -270,6 +226,25 @@ const exportCSV = () => {
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
 }
+const fetchOrders = async () => {
+  try {
+    const response = await api.get('/orders')
+    
+    if (response.data && response.data.data) {
+      orders.value = response.data.data
+    } else if (response.data && response.data.orders) {
+      orders.value = response.data.orders
+    } else {
+      orders.value = Array.isArray(response.data) ? response.data : []
+    }
+  } catch (error) {
+    console.error("Failed to fetch orders:", error.message)
+  }
+}
+
+onMounted(() => {
+  fetchOrders()
+})
 </script>
 <style scoped>
 .whitespace-pre-line {
