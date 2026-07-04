@@ -81,9 +81,10 @@
                 <div class="text-gray-900 font-black text-sm mt-1">{{ order.totalPrice }}</div>
               </td>
               <td class="py-4 px-6 align-top text-center">
-                <div class="mt-1">
-                  <span 
-                    class="px-3 py-1 text-[10px] uppercase font-bold rounded-md tracking-wider"
+                <div class="mt-1 relative">
+                  <button
+                    @click="toggleStatusDropdown(order.id)"
+                    class="px-3 py-1 text-[10px] uppercase font-bold rounded-md tracking-wider cursor-pointer border-none"
                     :class="{
                       'bg-[#dcfce7] text-[#166534]': order.status === 'COMPLETED',
                       'bg-[#fef08a] text-[#a16207]': order.status === 'PENDING',
@@ -91,7 +92,25 @@
                     }"
                   >
                     {{ order.status }}
-                  </span>
+                  </button>
+                  <div
+                    v-if="openDropdownId === order.id"
+                    class="absolute top-full left-1/2 -translate-x-1/2 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-10 min-w-[130px]"
+                  >
+                    <button
+                      v-for="status in ['PENDING', 'COMPLETED', 'CANCELLED']"
+                      :key="status"
+                      @click="updateOrderStatus(order.id, status)"
+                      class="block w-full text-left px-4 py-2 text-xs font-bold uppercase tracking-wider hover:bg-gray-50 transition-colors"
+                      :class="{
+                        'text-[#166534]': status === 'COMPLETED',
+                        'text-[#a16207]': status === 'PENDING',
+                        'text-[#991b1b]': status === 'CANCELLED'
+                      }"
+                    >
+                      {{ status }}
+                    </button>
+                  </div>
                 </div>
               </td>
               <td class="py-4 px-6 align-top text-right">
@@ -144,6 +163,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import api from '@/services/api'
 const tabs = ['All Orders', 'Pending', 'Completed', 'Cancelled']
 const activeTab = ref('All Orders')
 const orders = ref([
@@ -205,6 +225,24 @@ const filteredOrders = computed(() => {
   }
   return orders.value.filter(order => order.status === activeTab.value.toUpperCase())
 })
+
+const openDropdownId = ref(null)
+
+const toggleStatusDropdown = (orderId) => {
+  openDropdownId.value = openDropdownId.value === orderId ? null : orderId
+}
+
+const updateOrderStatus = async (orderId, newStatus) => {
+  try {
+    await api.put(`/orders/${orderId}`, { status: newStatus })
+    const order = orders.value.find(o => o.id === orderId)
+    if (order) order.status = newStatus
+    openDropdownId.value = null
+  } catch (error) {
+    console.error('Error updating order status:', error)
+    alert(error?.response?.data?.message || 'Failed to update order status')
+  }
+}
 
 const exportCSV = () => {
   const headers = ['Order ID', 'Customer Name', 'Date', 'Time', 'Items', 'Total Price', 'Status']
