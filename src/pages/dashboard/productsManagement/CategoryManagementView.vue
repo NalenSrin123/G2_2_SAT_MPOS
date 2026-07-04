@@ -116,15 +116,18 @@ onMounted(() => {
             <td class="p-4">
               <div class="flex justify-center gap-2">
                 <button
-                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg"
+                  type="button"
+                  class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
                 >
                   Edit
                 </button>
                 <button
-                  class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg"
-                >
-                  Delete
-                </button>
+                   type="button"
+                   @click="openDeleteModal(category)"
+                    class="bg-red-500 hover:bg-red-600 text-white px-4 py-1 rounded-lg text-sm"
+                  >
+                    Delete
+                  </button>
               </div>
             </td>
           </tr>
@@ -142,4 +145,199 @@ onMounted(() => {
     </div>
 
   </div>
+
+  <!-- Delete Modal -->
+<div
+  v-if="showDeleteModal"
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+>
+  <div class="bg-white rounded-xl shadow-xl w-100">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center border-b px-6 py-4">
+      <h2 class="text-xl font-bold text-red-600">
+        Delete Category
+      </h2>
+
+      <button
+        type="button"
+        @click="closeDeleteModal"
+        class="text-gray-500 hover:text-black text-xl"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-5">
+      <p class="text-gray-600">
+        Are you sure you want to delete
+      </p>
+
+      <p class="font-bold text-lg mt-2">
+        {{ selectedCategory?.name }}
+      </p>
+
+      <p class="text-sm text-red-500 mt-4">
+        This action cannot be undone.
+      </p>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end gap-3 border-t px-6 py-4">
+      <button
+        type="button"
+        @click="closeDeleteModal"
+        class="px-4 py-2 rounded-lg border hover:bg-gray-100"
+      >
+        Cancel
+      </button>
+
+      <button
+        type="button"
+        @click="deleteCategory"
+        class="px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700"
+      >
+        Delete
+      </button>
+    </div>
+
+  </div>
+</div>
+
+  <!-- Success Modal -->
+<div
+  v-if="showSuccessModal"
+  class="fixed inset-0 bg-black/50 flex items-center justify-center z-50"
+>
+  <div class="bg-white rounded-xl shadow-xl w-100">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center border-b px-6 py-4">
+      <h2 class="text-xl font-bold text-green-600">
+        Success
+      </h2>
+
+      <button
+        type="button"
+        @click="closeSuccessModal"
+        class="text-gray-500 hover:text-black text-xl"
+      >
+        ✕
+      </button>
+    </div>
+
+    <!-- Body -->
+    <div class="px-6 py-5">
+      <div class="flex items-center gap-3">
+        <div class="text-3xl text-green-600">✓</div>
+        <p class="text-gray-600">
+          {{ successMessage }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="flex justify-end border-t px-6 py-4">
+      <button
+        type="button"
+        @click="closeSuccessModal"
+        class="px-4 py-2 rounded-lg bg-green-600 text-white hover:bg-green-700"
+      >
+        OK
+      </button>
+    </div>
+
+  </div>
+</div>
+
+
 </template>
+
+<script setup>
+import { ref, onMounted, watch } from "vue";
+import axios from "axios";
+import api from "@/services/api";
+const categories = ref([]);
+const showDeleteModal = ref(false);
+const selectedCategory = ref(null);
+const showSuccessModal = ref(false);
+const successMessage = ref("");
+
+const fetchCategories = async () => {
+  try {
+    // will change the url to the backend api once it is ready
+    const response = await api.get(
+      "/categories"
+    );
+
+    categories.value = response.data;
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
+};
+
+onMounted(() => {
+  console.log("Component mounted");
+  fetchCategories();
+});
+
+// Watch for unexpected changes to showSuccessModal
+watch(showSuccessModal, (newVal, oldVal) => {
+  console.log(`showSuccessModal changed from ${oldVal} to ${newVal}`);
+  if (!newVal && oldVal) {
+    console.trace("Modal is being closed! Stack trace:");
+  }
+});
+
+const openDeleteModal = (category) => {
+  console.log(category)
+  selectedCategory.value = category;
+  showDeleteModal.value = true;
+};
+
+const closeDeleteModal = () => {
+  console.log("Closing delete modal");
+  showDeleteModal.value = false;
+  selectedCategory.value = null;
+};
+
+const openSuccessModal = (message) => {
+  console.log("Opening success modal with message:", message);
+  successMessage.value = message;
+  showSuccessModal.value = true;
+};
+
+const closeSuccessModal = () => {
+  console.log("Closing success modal");
+  successMessage.value = "";
+  showSuccessModal.value = false;
+};
+
+const deleteCategory = async () => {
+  if (!selectedCategory.value) return;
+
+  try {
+    const id = selectedCategory.value.id;
+    const name = selectedCategory.value.name;
+
+    await api.delete(`/categories/${id}`);
+
+    categories.value = categories.value.filter(
+      (item) => item.id !== id
+    );
+
+    openSuccessModal(`Category "${name}" has been deleted successfully.`);
+    closeDeleteModal();
+    
+  } catch (error) {
+    console.error("Error deleting category:", error);
+    alert("Failed to delete category.");
+  }
+};
+
+
+</script>
+
+
+

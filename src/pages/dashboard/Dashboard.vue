@@ -120,7 +120,7 @@
 
       </div>
 
-      <div class="h-[400px]">
+      <div class="h-100">
         <Bar
           :data="chartData"
           :options="chartOptions"

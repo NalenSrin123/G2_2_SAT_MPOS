@@ -140,7 +140,6 @@ const routes = [
    */
   // { path: '/', component: Home },
   // { path: '/home', component: Home },
-  { path: '/payment-method', component: PaymentMethods },
 
   /**
    * Catch-all route

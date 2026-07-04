@@ -62,7 +62,7 @@
                   >
                     {{ order.initials }}
                   </div>
-                  <div class="text-gray-700 font-medium text-sm leading-tight max-w-[100px] whitespace-pre-line">
+                  <div class="text-gray-700 font-medium text-sm leading-tight max-w-25 whitespace-pre-line">
                     {{ order.customerName }}
                   </div>
                 </div>
