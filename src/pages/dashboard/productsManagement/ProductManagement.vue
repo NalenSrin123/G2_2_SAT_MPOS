@@ -169,13 +169,14 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 import ProductHeader from '@/components/productsManagementDesign/ProductHeader.vue'
 import ProductStats from '@/components/productsManagementDesign/ProductStats.vue'
 import ProductFilters from '@/components/productsManagementDesign/ProductFilters.vue'
 import ProductTable from '@/components/productsManagementDesign/ProductTable.vue'
 import ProductPagination from '@/components/productsManagementDesign/ProductPagination.vue'
+import api from '@/services/api'
 
 
 const selectedCategory = ref('All Products')
@@ -211,79 +212,23 @@ const editForm = ref({
   stock: 0
 })
 
-// data fake
-const products = ref([
-{
-    id: 1,
-    name: 'Coca Cola 330ml',
-    sku: 'DRK-001',
-    category: 'Beverages',
-    price: 1.25,
-    stock: 120,
-    status: 'Active',
-    image: 'https://picsum.photos/60?1'
-  },
-  {
-    id: 2,
-    name: 'Pepsi 330ml',
-    sku: 'DRK-002',
-    category: 'Beverages',
-    price: 1.25,
-    stock: 95,
-    status: 'Active',
-    image: 'https://picsum.photos/60?2'
-  },
-  {
-    id: 3,
-    name: 'Lays Classic Chips',
-    sku: 'SNK-003',
-    category: 'Snacks',
-    price: 1.75,
-    stock: 45,
-    status: 'Active',
-    image: 'https://picsum.photos/60?3'
-  },
-  {
-    id: 4,
-    name: 'Oreo Cookies',
-    sku: 'SNK-004',
-    category: 'Snacks',
-    price: 2.50,
-    stock: 8,
-    status: 'Low Stock',
-    image: 'https://picsum.photos/60?4'
-  },
-  {
-    id: 5,
-    name: 'Instant Noodles',
-    sku: 'FOD-005',
-    category: 'Food',
-    price: 0.85,
-    stock: 60,
-    status: 'Active',
-    image: 'https://picsum.photos/60?5'
-  },
-  {
-    id: 6,
-    name: 'Milk 1L',
-    sku: 'DAI-006',
-    category: 'Dairy',
-    price: 2.10,
-    stock: 15,
-    status: 'Active',
-    image: 'https://picsum.photos/60?6'
-  },
-  {
-    id: 7,
-    name: 'Bread Loaf',
-    sku: 'BAK-007',
-    category: 'Bakery',
-    price: 1.80,
-    stock: 5,
-    status: 'Low Stock',
-    image: 'https://picsum.photos/60?7'
+const products = ref([])
+const isLoading = ref(true)
+
+const fetchProducts = async () => {
+  try {
+    const response = await api.get('/products')
+    products.value = response.data
+  } catch (error) {
+    console.error('Error fetching products:', error)
+  } finally {
+    isLoading.value = false
   }
-  ])
+}
+
+onMounted(() => {
+  fetchProducts()
+})
 
 
 // filtered products

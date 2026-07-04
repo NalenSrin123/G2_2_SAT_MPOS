@@ -8,11 +8,11 @@
     <form @submit.prevent="handleSubmit" class="space-y-5">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Full Name</label>
+          <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Username</label>
           <input
             v-model="form.name"
             type="text"
-            placeholder="Enter your full name"
+            placeholder="Enter your username"
             class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition-all"
             required
           />
@@ -49,7 +49,7 @@
               required
               class="w-full px-3 py-2 bg-gray-50 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none cursor-pointer text-gray-700"
             >
-              <option value="" disabled selected>Select user role</option>
+              <option value=" disabled selected">Select user role</option>
               <option value="admin">Admin</option>
               <option value="user">User</option>
             </select>
@@ -78,9 +78,9 @@
         <label class="block text-xs font-semibold text-gray-600 uppercase tracking-wider mb-2">Account Status</label>
         <div class="flex items-center gap-4 mt-1">
           <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-            <input type="radio" v-model="form.status" value="Active" class="text-blue-600 focus:ring-blue-500" />
+            <input type="radio" v-model="form.status" value="active" class="text-blue-600 focus:ring-blue-500" />
             <span
-              :class="form.status === 'Active' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-400 border-gray-200'"
+              :class="form.status === 'active' ? 'bg-green-50 text-green-700 border-green-200' : 'bg-gray-50 text-gray-400 border-gray-200'"
               class="px-2.5 py-0.5 rounded-full text-xs font-medium border transition-all"
             >
               Active
@@ -88,9 +88,9 @@
           </label>
 
           <label class="flex items-center gap-2 text-sm text-gray-700 cursor-pointer">
-            <input type="radio" v-model="form.status" value="Inactive" class="text-blue-600 focus:ring-blue-500" />
+            <input type="radio" v-model="form.status" value="inactive" class="text-blue-600 focus:ring-blue-500" />
             <span
-              :class="form.status === 'Inactive' ? 'bg-gray-200 text-gray-800 border-gray-300 font-semibold' : 'bg-gray-50 text-gray-400 border-gray-200'"
+              :class="form.status === 'inactive' ? 'bg-gray-200 text-gray-800 border-gray-300 font-semibold' : 'bg-gray-50 text-gray-400 border-gray-200'"
               class="px-2.5 py-0.5 rounded-full text-xs font-medium border transition-all"
             >
               Inactive
@@ -121,6 +121,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import axios from 'axios'
 
 const router = useRouter()
 
@@ -130,18 +131,24 @@ const form = ref({
   phone: '',
   role: '',
   password: '',
-  status: 'Active'
+  status: 'active'
 })
 
-const handleSubmit = () => {
-  console.log('Data to send to API:', form.value)
-  alert('User created successfully! (Check console for data)')
-  router.push('/dashboard')
+
+const handleSubmit = async () => {
+  try {
+    await axios.post('https://g2-2-sat-pos-back.onrender.com/api/users', form.value)
+    localStorage.setItem(`status_${form.value.email}`, form.value.status)
+    alert('User created successfully!')
+    router.push('/dashboard') 
+  } catch (error) {
+    alert('Failed to create user: ' + error.message)
+  }
 }
 
 const handleCancel = () => {
   if (confirm('Are you sure you want to discard changes?')) {
-    form.value = { name: '', email: '', phone: '', role: '', password: '', status: 'Active' }
+    form.value = { username: '', email: '', phone: '', role: '', password: '', status: 'Active' }
     router.push('/dashboard')
   }
 }

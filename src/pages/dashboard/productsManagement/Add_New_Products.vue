@@ -1,7 +1,7 @@
 <template>
-  <div class="bg-gray-200 min-h-screen p-0">
+  <main class="min-h-screen bg-white text-slate-900">
     <section
-      class="w-full flex flex-col gap-6 px-6 py-6"
+      class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8"
     >
       <header
         class="flex flex-col gap-5 border-b border-slate-200 pb-5 lg:flex-row lg:items-end lg:justify-between"
@@ -249,7 +249,7 @@
                   :aria-label="`Product image slot ${i}`"
                 >
                   <span class="h-5 w-6 rounded">
-                    <div class="flex justify-center mt-0.5">
+                    <div class="mt-0 flex justify-center mt-0.5">
                       <i
                         class="fa-regular fa-clone"
                         style="color: royalblue"
@@ -313,7 +313,7 @@
         </aside>
       </form>
     </section>
-  </div>
+  </main>
 </template>
 <script setup>
 const saveDraft = () => {
