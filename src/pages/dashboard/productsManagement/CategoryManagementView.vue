@@ -116,7 +116,12 @@ onMounted(() => {
             <td class="p-4">
               <div class="flex justify-center gap-2">
                 <button
-                  type="button"
+                  @click="
+                    updateCategory(category.id, {
+                      name: category.name,
+                      status: category.status,
+                    })
+                  "
                   class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-1 rounded-lg text-sm"
                 >
                   Edit
@@ -336,7 +341,25 @@ const deleteCategory = async () => {
   }
 };
 
+const updateCategory = async (id, categoryData) => {
+  try {
+    console.log("Updating:", id, categoryData);
 
+    const response = await api.put(`/categories/${id}`, categoryData);
+
+    console.log("Status:", response.status);
+    console.log("Response:", response.data);
+
+    await fetchCategories();
+  } catch (error) {
+    console.error("Update failed:", error);
+
+    if (error.response) {
+      console.log("Status:", error.response.status);
+      console.log("Response:", error.response.data);
+    }
+  }
+};
 </script>
 
 
