@@ -348,13 +348,20 @@ const closeModal = () => {
   selectedProduct.value = null
 }
 
-const confirmDelete = () => {
-  products.value = products.value.filter(
-    p => p.id !== selectedProduct.value.id
-  )
+const confirmDelete = async () => {
+  if (!selectedProduct.value) return
 
-  closeModal()
-  showSuccess('Remove success', 'remove')
+  try {
+    await api.delete(`/products/${selectedProduct.value.id}`)
+    await fetchProducts()
+
+    closeModal()
+    showSuccess('Remove success', 'remove')
+  } catch (error) {
+    console.error('Error deleting product:', error)
+    closeModal()
+    showSuccess('Delete failed', 'update')
+  }
 }
 
 const showSuccess = (message, type = 'update') => {
