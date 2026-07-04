@@ -52,7 +52,7 @@ import Home_page from '../pages/customer/Home_page.vue';
 import Add_User from '../pages/dashboard/Add_User.vue';
 import HistoryPage from '../components/HistoryPage.vue';
 import Create_Category from '../pages/dashboard/Create_Category.vue';
-
+import CreateUserForm from '../components/CreateUserForm.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -62,8 +62,9 @@ const routes = [
    * Default entry route
    * Redirects "/" to "/preview" to showcase the project structure
    */
-  { path: '/', component: Home_page },
-  { path: '/order-history', component: HistoryPage },
+  { path: '/',component:Home_page },
+  { path: '/order-history', component:HistoryPage},
+  { path: '/add-user', component: CreateUserForm},
 
   /**
    * Preview page (landing/demo screen)
