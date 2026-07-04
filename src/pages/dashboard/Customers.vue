@@ -9,8 +9,9 @@
     <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
       <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
         <h2 class="text-lg font-bold text-slate-950">User List</h2>
-        <button @click="router.push('/add-user')" class="rounded-md bg-[#00449e] px-4 py-2 text-sm font-bold text-white hover:bg-[#00387f]" type="button">Add User
-        </button>
+        <router-link to="/add-user" class="text-blue-500 hover:text-blue-700">
+          Add User
+        </router-link>
       </div>
       <div class="overflow-x-auto">
 

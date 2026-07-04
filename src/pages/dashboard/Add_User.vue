@@ -25,7 +25,7 @@
       <form
         id="add-user-form"
         class="w-full"
-        @submit.prevent="updateUser"
+        @submit.prevent="handleSubmit"
       >
         <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
           <div class="flex flex-col gap-3 border-b border-slate-100 p-5 sm:flex-row sm:items-center sm:justify-between">
@@ -127,7 +127,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, reactive } from 'vue'
+import { computed, onMounted, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import BaseInput from '../../components/base/BaseInput.vue'
 import api from '../../services/api'
@@ -148,7 +148,7 @@ const errorMessage = ref('')
 const successMessage = ref('')
 
 async function addUser() {
-  if (!form.username || !form.email || !form.password || !form.role) {
+  if (!form.name || !form.email || !form.password || !form.role) {
     errorMessage.value = 'Please fill in all fields.'
     return
   }
@@ -159,7 +159,7 @@ async function addUser() {
 
   try {
     await api.post('/users', {
-      name: form.username,
+      name: form.name,
       email: form.email,
       password: form.password,
       role: form.role,
@@ -167,11 +167,12 @@ async function addUser() {
 
     successMessage.value = 'User created successfully.'
     Object.assign(form, {
-      username: '',
+      name: '',
       email: '',
       password: '',
       role: '',
     })
+    router.push('/customers')
   } catch (error) {
     errorMessage.value = error?.response?.data?.message || 'Failed to create user. Please try again.'
   } finally {
@@ -203,6 +204,15 @@ async function getUser() {
 }
 
 async function updateUser() {
+  if (!form.name || !form.email || !form.role) {
+    errorMessage.value = 'Please fill in all required fields.'
+    return
+  }
+
+  loading.value = true
+  errorMessage.value = ''
+  successMessage.value = ''
+
   try {
     const response = await api.put(`/users/${userId.value}`, {
       name: form.name,
@@ -216,7 +226,9 @@ async function updateUser() {
     alert('User updated successfully')
     router.push('/customers')
   } catch (error) {
-    console.error(error)
+    errorMessage.value = error?.response?.data?.message || 'Failed to update user.'
+  } finally {
+    loading.value = false
   }
 }
 
@@ -225,6 +237,15 @@ function discardForm() {
   form.email = ''
   form.password = ''
   form.role = ''
+}
+
+function handleSubmit() {
+  if (isEditing.value) {
+    updateUser()
+    return
+  }
+
+  addUser()
 }
 
 onMounted(() => {

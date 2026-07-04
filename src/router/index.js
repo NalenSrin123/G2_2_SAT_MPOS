@@ -52,7 +52,6 @@ import Home_page from '../pages/customer/Home_page.vue';
 import Add_User from '../pages/dashboard/Add_User.vue';
 import HistoryPage from '../components/HistoryPage.vue';
 import Create_Category from '../pages/dashboard/Create_Category.vue';
-import CreateUserForm from '../components/CreateUserForm.vue'
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -64,7 +63,6 @@ const routes = [
    */
   { path: '/',component:Home_page },
   { path: '/order-history', component:HistoryPage},
-  { path: '/add-user', component: CreateUserForm},
 
   /**
    * Preview page (landing/demo screen)
@@ -107,6 +105,7 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   { path: '/customers', component: Customers, meta: { layout: 'dashboard' } },
+  { path: '/add-user', component: Add_User, meta: { layout: 'dashboard' } },
   { path: '/reports', component: Reports, meta: { layout: 'dashboard' } },
   { path: '/settings', component: Settings, meta: { layout: 'dashboard' } },
   {
@@ -115,13 +114,6 @@ const routes = [
     meta: { layout: 'dashboard' },
   },
   { path: '/cart', component: cart_items_page, meta: { layout: 'dashboard' } },
-  {
-    path: '/add-user',
-    name: 'AddUser',
-    component: Add_User,
-    meta: { layout: 'dashboard' },
-  },
-
   /**
    * Authentication routes
    */
