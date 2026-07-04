@@ -36,6 +36,20 @@
               <td class="px-5 py-4">
                 <button @click="deleteUser(user.id)" class="rounded bg-rose-600 px-3 py-1 text-xs font-bold text-white hover:bg-rose-700 transition" type="button">Delete</button>
               </td>
+              <td class="px-5 py-5">
+                <router-link :to="{
+                  path: '/add-user',
+                  query: {
+                    mode: 'edit',
+                    id: user.id
+                  }
+              }">
+                <button type="button" class="rounded-lg bg-blue-500 px-4  py-1 text-sm text-white hover:bg-blue-600"
+                @click="goToEditUser">
+                Edit
+              </button>
+            </router-link>
+          </td>
             </tr>
           </tbody>
         </table>
@@ -81,7 +95,7 @@ const fetchUsers = async () => {
 const deleteUser = async (id) => {
   if (confirm("Are you sure you want to delete this user?")){
     try {
-      await axios.delete(`https://g2-2-sat-pos-back.onrender.com/api/users/${id}`);
+      await api.delete(`users/${id}`);
       users.value = users.value.filter(user => user.id !== id);
       alert("User deleted successfully!");
     } catch(error) {
