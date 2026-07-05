@@ -132,10 +132,10 @@
 
               <div>
                 <label class="mb-2 block text-sm font-semibold text-slate-700">
-                  Stock Quantity
+                  Status
                 </label>
                 <input
-                  v-model.number="product.stock_quantity"
+                  v-model.number="product.status"
                   type="number"
                   inputmode="numeric"
                   placeholder="0"
@@ -200,7 +200,7 @@ const product = ref({
   name: "",
   category_id: "",
   price: "",
-  stock_quantity: "",
+  status: "",
 });
 
 const getCategories = async () => {
@@ -219,7 +219,7 @@ const createProduct = async () => {
         formData.append("name", product.value.name);
         formData.append("category_id", product.value.category_id);
         formData.append("price", product.value.price);
-        formData.append("stock_quantity", product.value.stock_quantity);
+        formData.append("status", product.value.status);
 
         if (image.value) {
             formData.append("image", image.value);
