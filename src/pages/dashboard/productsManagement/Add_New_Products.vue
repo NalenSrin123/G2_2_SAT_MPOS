@@ -249,7 +249,7 @@
                   :aria-label="`Product image slot ${i}`"
                 >
                   <span class="h-5 w-6 rounded">
-                    <div class="mt-0 flex justify-center mt-0.5">
+                    <div class="mt-0 flex justify-center">
                       <i
                         class="fa-regular fa-clone"
                         style="color: royalblue"
@@ -316,13 +316,22 @@
   </main>
 </template>
 <script setup>
-const saveDraft = () => {
-  alert("Saved as Draft")
-}
-
-const createProduct = () => {
-  alert("Product Created")
-}
+import api from "@/services/api";
+const updateProduct = async (id, productData) => {
+  try {
+    console.log("Updating Product:", id, productData);
+    const response = await api.put(`/products/${id}`, productData);
+    console.log("Status:", response.status);
+    console.log("Response:", response.data);
+   
+  } catch (error) {
+    console.error("Update failed:", error);
+    if (error.response) {
+      console.log("Status:", error.response.status);
+      console.log("Response:", error.response.data);
+    }
+  }
+};
 </script>
 
 <style>
