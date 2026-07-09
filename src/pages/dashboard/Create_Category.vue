@@ -1,12 +1,10 @@
 <template>
   <main class="min-h-screen bg-gray-100 text-slate-900">
-    <section
-      class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8"
-    >
+    <section class="mx-auto flex w-full max-w-7xl flex-col gap-6 px-4 py-6 sm:px-6 lg:px-8">
+
       <!-- Header -->
-      <header
-        class="flex flex-col gap-5 border-b border-slate-200 pb-5 lg:flex-row lg:items-end lg:justify-between"
-      >
+      <header class="flex flex-col gap-5 border-b border-slate-200 pb-5 lg:flex-row lg:items-end lg:justify-between">
+
         <div class="space-y-3">
           <RouterLink
             to="/categories"
@@ -18,13 +16,11 @@
 
           <div>
             <h1 class="mt-1 text-3xl font-bold text-slate-950 sm:text-4xl">
-              Create New Category
+              {{ isEdit ? "Update Category" : "Create New Category" }}
             </h1>
 
-            <p
-              class="mt-2 max-w-2xl text-sm leading-6 text-slate-500 sm:text-base"
-            >
-              Create a category to organize and manage your products.
+            <p class="mt-2 text-sm text-slate-500">
+              {{ isEdit ? "Update category information" : "Create New Category" }}
             </p>
           </div>
         </div>
@@ -32,7 +28,7 @@
         <div class="flex flex-col-reverse gap-3 sm:flex-row">
           <button
             type="button"
-            class="inline-flex h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 shadow-sm hover:bg-slate-50"
+            class="inline-flex h-11 items-center justify-center rounded-lg border border-slate-300 bg-white px-5 text-sm font-semibold text-slate-700 hover:bg-slate-50"
           >
             Save as Draft
           </button>
@@ -40,24 +36,24 @@
           <button
             type="submit"
             form="create-category-form"
-            class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white shadow-sm hover:bg-blue-700"
+            class="inline-flex h-11 items-center justify-center rounded-lg bg-blue-600 px-5 text-sm font-semibold text-white hover:bg-blue-700"
           >
-            Create Category
+            {{ isEdit ? "Update Category" : "Create Category" }}
           </button>
         </div>
       </header>
 
-      <!-- Form -->
+      <!-- FORM -->
       <form
         id="create-category-form"
         class="grid grid-cols-1 gap-6 lg:grid-cols-[minmax(0,1fr)_350px]"
-        @submit.prevent="createCategory"
+        @submit.prevent="submitCategory"
       >
-        <!-- Left -->
+
+        <!-- LEFT -->
         <div class="space-y-6">
-          <section
-            class="rounded-lg border border-slate-200 bg-white shadow-sm"
-          >
+          <section class="rounded-lg border border-slate-200 bg-white shadow-sm">
+
             <div class="border-b border-slate-100 p-5">
               <div class="icon">
                 <i class="fa-solid fa-layer-group"></i>
@@ -69,6 +65,7 @@
             </div>
 
             <div class="space-y-5 p-5">
+
               <!-- Category Name -->
               <div>
                 <label class="mb-2 block text-sm font-semibold text-slate-700">
@@ -76,27 +73,23 @@
                 </label>
 
                 <input
-                  v-model="name"
+                  v-model="form.name"
                   type="text"
                   placeholder="Enter category name"
-                  class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm outline-none transition focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
+                  class="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm focus:border-blue-500 focus:ring-4 focus:ring-blue-100"
                 />
               </div>
 
-              <!-- Parent Category -->
-              <div>
-                <div class="relative"></div>
-              </div>
             </div>
           </section>
         </div>
 
-        <!-- Right -->
+        <!-- RIGHT -->
         <aside class="space-y-6">
-          <!-- Status -->
-          <section
-            class="rounded-lg border border-slate-200 bg-white shadow-sm h-61.5"
-          >
+
+          <!-- STATUS -->
+          <section class="rounded-lg border border-slate-200 bg-white shadow-sm h-61.5">
+
             <div class="border-b border-slate-100 p-5">
               <h2 class="text-xl font-semibold text-slate-950">
                 Category Status
@@ -104,9 +97,9 @@
             </div>
 
             <div class="space-y-5 p-5">
-              <div
-                class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3"
-              >
+
+              <div class="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3">
+
                 <div>
                   <p class="font-semibold text-slate-700">Active Category</p>
                   <p class="text-xs text-slate-500">
@@ -115,49 +108,93 @@
                 </div>
 
                 <label class="relative inline-flex cursor-pointer items-center">
-                  <input type="checkbox" checked class="peer sr-only" />
+                  <input
+                    type="checkbox"
+                    v-model="form.status"
+                    class="peer sr-only"
+                  />
 
                   <span
                     class="relative h-6 w-11 rounded-full bg-slate-300 transition peer-checked:bg-blue-600 after:absolute after:left-0.75 after:top-0.75 after:h-4.5 after:w-4.5 after:rounded-full after:bg-white after:transition peer-checked:after:translate-x-5"
                   ></span>
                 </label>
+
               </div>
+
             </div>
           </section>
+
         </aside>
       </form>
     </section>
   </main>
 </template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import api from "@/services/api";
+
+const route = useRoute();
+const router = useRouter();
+
+const isEdit = ref(false);
+const categoryId = ref(null);
+
+const form = ref({
+  name: "",
+  status: true,
+});
+
+/* =========================
+   LOAD DATA (EDIT MODE)
+========================= */
+onMounted(async () => {
+  if (route.params.id) {
+    isEdit.value = true;
+    categoryId.value = route.params.id;
+
+    try {
+      const { data } = await api.get(`/categories/${categoryId.value}`);
+
+      form.value = {
+        name: data.name,
+        status: data.status === "Active",
+      };
+    } catch (err) {
+      console.error("Failed to load category", err);
+    }
+  }
+});
+
+/* =========================
+   CREATE / UPDATE
+========================= */
+const submitCategory = async () => {
+  try {
+    const payload = {
+      name: form.value.name,
+      status: form.value.status ? "Active" : "Inactive",
+    };
+
+    if (isEdit.value) {
+      await api.put(`/categories/${categoryId.value}`, payload);
+    } else {
+      await api.post("/categories", payload);
+    }
+
+    router.push("/categories");
+
+  } catch (err) {
+    console.error(err.response?.data || err);
+    alert("Failed to save category");
+  }
+};
+</script>
+
 <style scoped>
 .icon {
   color: rgb(37, 99, 235);
   font-size: 25px;
 }
 </style>
-
-<script setup>
-import { ref } from 'vue';
-import { useRouter } from 'vue-router';
-import axios from 'axios';
-import api from '../../services/api';
-const router = useRouter();
-
-const name = ref('');
-
-const createCategory = async () => {
-  try {
-    const response = await api.post(
-      '/categories',
-      {
-        name: name.value,
-      },
-    );
-
-    router.push('/categories');
-  } catch (error) {
-    console.error(error.response?.data || error);
-    alert('Failed to create category');
-  }
-};
-</script>
