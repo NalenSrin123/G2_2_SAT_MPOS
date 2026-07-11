@@ -75,62 +75,32 @@
         </div>
       </div>
 
-      <!-- Grid Items -->
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-6">
-        <!-- Card 1 -->
-        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
-          <img
-            src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
-          <div class="absolute bottom-4 left-4">
-            <h3 class="text-white text-lg font-semibold">Truffle Fettuccine</h3>
-            <p class="text-white/80">$32.00</p>
-          </div>
-        </div>
+  <div
+    v-for="product in products"
+    :key="product.id"
+    @click="viewProduct(product.id)"
+    class="relative overflow-hidden rounded-3xl h-50 sm:h-55 cursor-pointer"
+  >
+    <img
+      :src="product.image"
+      :alt="product.name"
+      class="w-full h-full object-cover"
+    />
 
-        <!-- Card 2 -->
-        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
-          <img
-            src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
-          <div class="absolute bottom-4 left-4">
-            <h3 class="text-white text-lg font-semibold">Midnight Orchid</h3>
-            <p class="text-white/80">$18.00</p>
-          </div>
-        </div>
+    <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
 
-        <!-- Card 3 -->
-        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55">
-          <img
-            src="https://italianstreetkitchen.com/au/wp-content/uploads/2021/10/Gamberi-Prawn-Pizza.jpg"
-            class="w-full h-full object-cover"
-          />
-          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
-          <div class="absolute bottom-4 left-4">
-            <h3 class="text-white text-lg font-semibold">Italian Pizza</h3>
-            <p class="text-white/80">$24.00</p>
-          </div>
-        </div>
+    <div class="absolute bottom-4 left-4">
+      <h3 class="text-white text-lg font-semibold">
+        {{ product.name }}
+      </h3>
 
-        <!-- Card 4 -->
-        <div class="relative overflow-hidden rounded-3xl h-50 sm:h-55 
-             md:hidden lg:block">   <!-- Add this -->
-          <img
-            src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092"
-            class="w-full h-full object-cover"
-          />
-          
-          <div class="absolute inset-0 bg-linear-to-t from-black/80 to-transparent"></div>
-          <div class="absolute bottom-4 left-4">
-            <h3 class="text-white text-lg font-semibold">Berry Cheesecake</h3>
-            <p class="text-white/80">$16.00</p>
-          </div>
-        </div>
-      </div>
+      <p class="text-white/80">
+        ${{ product.price }}
+      </p>
+    </div>
+  </div>
+</div>
     </section>
 
     <!-- Main Menu -->
@@ -139,24 +109,6 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import Design_Main_menu from "../home/home/Design_Main_menu.vue";
-import { ref } from 'vue';
-import {
-  Search,
-  Bell,
-  History,
-} from "lucide-vue-next";
-
-const categories = [
-  "All", "Starters", "Main Course", "Drinks", "Desserts",
-  "Seafood", "Steak", "Pasta", "Pizza", "Burgers", "Asian", "Healthy"
-];
-
-const activeCategory = ref("All");
-</script>
-
 <style scoped>
 /* Smooth scrollbar hiding */
 .scrollbar-hide::-webkit-scrollbar {
@@ -167,3 +119,39 @@ const activeCategory = ref("All");
   scrollbar-width: none;
 }
 </style>
+
+<script setup>
+import Design_Main_menu from "../home/home/Design_Main_menu.vue";
+import { ref , onMounted} from 'vue';
+import { useRouter } from "vue-router";
+import { getProducts } from "../../services/product.js";
+const router = useRouter();
+const products = ref([]);
+
+const fetchProducts = async () => {
+  try {
+    const response = await getProducts();
+
+    console.log(response.data);
+
+    products.value = response.data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+const viewProduct = (id) => {
+  router.push(`/products/${id}`);
+};
+
+onMounted(fetchProducts);
+
+
+
+const categories = [
+  "All", "Starters", "Main Course", "Drinks", "Desserts",
+  "Seafood", "Steak", "Pasta", "Pizza", "Burgers", "Asian", "Healthy"
+];
+
+const activeCategory = ref("All");
+</script>

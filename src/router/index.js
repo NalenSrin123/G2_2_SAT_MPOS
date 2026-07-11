@@ -49,9 +49,10 @@ import cart_items_page from "../pages/cart_items_page.vue";
 import PaymentMethods from "../pages/home/home/PaymentMethods.vue";
 import Home_page from "../pages/customer/Home_page.vue";
 
-import Add_User from "../pages/dashboard/Add_User.vue";
-import HistoryPage from "../components/HistoryPage.vue";
-import Create_Category from "../pages/dashboard/Create_Category.vue";
+import Add_User from '../pages/dashboard/Add_User.vue';
+import HistoryPage from '../components/HistoryPage.vue';
+import Create_Category from '../pages/dashboard/Create_Category.vue';
+import ProductDetail from '../pages/home/home/ProductDetail.vue';
 /**
  * Route definitions
  * Each route maps a URL path to a specific page component
@@ -175,6 +176,11 @@ const routes = [
     path: "/home-page",
     component: Home_page,
   },
+  {
+  path: "/products/:id",
+  name: "product-detail",
+  component: ProductDetail,
+}
 ];
 
 /**
