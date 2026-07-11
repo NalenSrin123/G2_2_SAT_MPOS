@@ -52,14 +52,13 @@
       </td>
       <td class="py-4 px-6 align-top text-right">
         <div class="flex justify-end gap-3 mt-1">
-          <button
-            @click="$emit('edit', product)"
-            class="px-3 py-1.5 rounded-md bg-[#002f87] text-white font-bold text-xs shadow-sm hover:bg-blue-900 transition-colors"
-          >
           <router-link to="/add_new_products">
-            Edit
+            <span             class="px-3 py-1.5 rounded-md bg-[#002f87] text-white font-bold text-xs shadow-sm hover:bg-blue-900 transition-colors"
+>
+Edit
+</span>
           </router-link>
-          </button>
+      
           <button
             @click="$emit('remove', product)"
             class="px-3 py-1.5 rounded-md bg-red-600 text-white font-bold text-xs shadow-sm hover:bg-red-700 transition-colors"

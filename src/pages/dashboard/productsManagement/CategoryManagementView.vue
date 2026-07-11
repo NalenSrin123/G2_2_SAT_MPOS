@@ -266,11 +266,10 @@ const deleteCategory = async () => {
     const id = selectedCategory.value.id;
     const name = selectedCategory.value.name;
 
-    await api.delete(`/categories/${id}`);
-
-    categories.value = categories.value.filter((item) => item.id !== id);
-
-    openSuccessModal(`Category "${name}" has been deleted successfully.`);
+    const result=await api.delete(`/categories/${id}`);
+    if(result.status==200){
+      fetchCategories()
+    }
     closeDeleteModal();
   } catch (error) {
     console.error("Error deleting category:", error);

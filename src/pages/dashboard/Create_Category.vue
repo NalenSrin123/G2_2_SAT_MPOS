@@ -174,7 +174,7 @@ const submitCategory = async () => {
   try {
     const payload = {
       name: form.value.name,
-      status: form.value.status ? "Active" : "Inactive",
+      status: form.value.status ? true: false,
     };
 
     if (isEdit.value) {
