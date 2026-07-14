@@ -11,14 +11,14 @@ export function useCartStore() {
     return items.value.reduce((count, item) => count + item.quantity, 0);
   });
 
-  const addToCart = (product) => {
+  const addToCart = (product, quantity = 1) => {
     const existingItem = items.value.find(item => item.id === product.id);
     if (existingItem) {
-      existingItem.quantity++;
+      existingItem.quantity += quantity;
     } else {
       items.value.push({
         ...product,
-        quantity: 1,
+        quantity: quantity,
         subtitle: product.description,
       });
     }

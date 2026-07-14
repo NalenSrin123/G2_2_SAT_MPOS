@@ -116,7 +116,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 const backToPayment = () => {
-  router.push("/payment-method");
+  router.push("/payment");
 };
 
 const totalAmount = ref('200.60')

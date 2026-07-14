@@ -2,9 +2,12 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { getProduct } from '../../../services/product';
+import { useCartStore } from '../../../stores/cart.store';
 
 const route = useRoute();
 const router = useRouter();
+
+const cart = useCartStore();
 
 const product = ref(null);
 const loading = ref(true);
@@ -25,6 +28,14 @@ const fetchProduct = async () => {
 const inc = () => qty.value++;
 const dec = () => {
   if (qty.value > 1) qty.value--;
+};
+const addCart = () => {
+  cart.addToCart(product.value, qty.value);
+};
+
+const buyNow = () => {
+  cart.addToCart(product.value, qty.value);
+  router.push('/payment');
 };
 
 onMounted(fetchProduct);
@@ -153,12 +164,14 @@ onMounted(fetchProduct);
         <!-- Buttons -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
           <button
+            @click="addCart"
             class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-3 rounded-xl font-semibold shadow-lg transition"
           >
             Add to Cart
           </button>
 
           <button
+            @click="buyNow"
             class="w-full border border-gray-300 hover:bg-gray-100 py-3 rounded-xl font-semibold transition"
           >
             Buy Now

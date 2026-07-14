@@ -114,7 +114,8 @@ const routes = [
     component: CategoryManagementView,
     meta: { layout: "dashboard" },
   },
-  { path: "/cart", component: cart_items_page, meta: { layout: "dashboard" } },
+  { path: "/cart", component: cart_items_page, meta: { layout: "/" } },
+  { path: "/payment", component: PaymentMethods, meta: { layout: "/" } },
   /**
    * Authentication routes
    */

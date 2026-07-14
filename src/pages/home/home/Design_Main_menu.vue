@@ -5,7 +5,8 @@ import Home_page from '../../customer/Home_page.vue';
 import { useCartStore } from '@/stores/cart.store';
 import api from '@/services/api';
 
-const { subtotal, orderCount, addToCart } = useCartStore();
+// const { subtotal, orderCount, addToCart } = useCartStore();
+const cart = useCartStore();
 
 const products = ref([]);
 const isLoading = ref(true);
@@ -73,7 +74,7 @@ onMounted(() => {
                 </span>
 
                 <button
-                  @click="addToCart(item)"
+                  @click="cart.addToCart(item)"
                   class="w-12 h-12 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xl font-bold flex items-center justify-center shadow-lg hover:scale-110 transition-all"
                 >
                   +
@@ -87,6 +88,7 @@ onMounted(() => {
 
    <!-- Floating Cart -->
 <div
+  v-if="cart.orderCount > 0"
   class="fixed bottom-4 left-1/2 -translate-x-1/2 w-[92%] max-w-md bg-emerald-700 rounded-2xl shadow-xl px-4 py-3 z-50"
 >
   <router-link
@@ -97,7 +99,7 @@ onMounted(() => {
       <div
         class="w-7 h-7 rounded-full bg-white text-emerald-700 flex items-center justify-center text-sm font-bold"
       >
-        {{ orderCount }}
+        {{ cart.orderCount }}
       </div>
 
       <span class="font-semibold">
@@ -106,7 +108,7 @@ onMounted(() => {
     </div>
 
     <span class="text-xl font-bold">
-      ${{ subtotal.toFixed(2) }}
+      ${{ cart.subtotal.toFixed(2) }}
     </span>
   </router-link>
 </div>  
